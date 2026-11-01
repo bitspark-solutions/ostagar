@@ -1,5 +1,6 @@
 using Garments.Core;
 using Garments.Ledger;
+using Garments.Modules.CashBook;
 using Garments.Platform.Audit;
 using Garments.Platform.Identity;
 using Garments.Platform.Rbac;
@@ -81,6 +82,8 @@ public class GarmentsDbContext(DbContextOptions<GarmentsDbContext> options, ITen
 
     public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
 
+    public DbSet<CashTransaction> CashTransactions => Set<CashTransaction>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -93,6 +96,7 @@ public class GarmentsDbContext(DbContextOptions<GarmentsDbContext> options, ITen
         ConfigureRoleGrants(builder);
         ConfigureAuditLogs(builder);
         LedgerModelConfiguration.Apply(builder);
+        CashBookModelConfiguration.Apply(builder);
 
         // Applied here rather than inside the ledger's own mapping because the filter has to close over
         // this context's tenant, and a static configuration class cannot reach it. Five calls instead of
@@ -104,6 +108,7 @@ public class GarmentsDbContext(DbContextOptions<GarmentsDbContext> options, ITen
         TenantQueryFilter<GlEntry>(builder);
         TenantQueryFilter<GlLine>(builder);
         TenantQueryFilter<ExchangeRate>(builder);
+        TenantQueryFilter<CashTransaction>(builder);
 
         SnakeCaseModelNames.Apply(builder);
     }

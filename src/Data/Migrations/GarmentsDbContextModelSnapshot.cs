@@ -495,6 +495,103 @@ namespace Garments.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Garments.Modules.CashBook.CashTransaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("ActorUserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("actor_user_id");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric(18,4)")
+                        .HasColumnName("amount");
+
+                    b.Property<Guid>("CashAccountId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("cash_account_id");
+
+                    b.Property<Guid>("CounterAccountId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("counter_account_id");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("character varying(3)")
+                        .HasColumnName("currency");
+
+                    b.Property<int>("Iteration")
+                        .HasColumnType("integer")
+                        .HasColumnName("iteration");
+
+                    b.Property<string>("Kind")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
+                        .HasColumnName("kind");
+
+                    b.Property<string>("Memo")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("memo");
+
+                    b.Property<Guid?>("PartnerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("partner_id");
+
+                    b.Property<Guid?>("PostedEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("posted_entry_id");
+
+                    b.Property<Guid?>("ReversedByEntryId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("reversed_by_entry_id");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("tenant_id");
+
+                    b.Property<DateOnly>("TransactionDate")
+                        .HasColumnType("date")
+                        .HasColumnName("transaction_date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CashAccountId");
+
+                    b.HasIndex("CounterAccountId");
+
+                    b.HasIndex("PostedEntryId");
+
+                    b.HasIndex("ReversedByEntryId");
+
+                    b.HasIndex("TenantId", "TransactionDate");
+
+                    b.ToTable("cash_transactions", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_cash_transactions_distinct_accounts", "cash_account_id <> counter_account_id");
+
+                            t.HasCheckConstraint("CK_cash_transactions_positive_amount", "amount > 0");
+
+                            t.HasCheckConstraint("CK_cash_transactions_tenant_scope", "tenant_id IS NOT NULL AND tenant_id = current_setting('app.tenant_id', true)::uuid");
+                        });
+                });
+
             modelBuilder.Entity("Garments.Platform.Audit.AuditLogEntry", b =>
                 {
                     b.Property<long>("Id")
@@ -1267,6 +1364,37 @@ namespace Garments.Data.Migrations
                     b.HasOne("Garments.Ledger.ChartOfAccount", null)
                         .WithMany()
                         .HasForeignKey("DefaultDebitAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Garments.Platform.Tenancy.Tenant", null)
+                        .WithMany()
+                        .HasForeignKey("TenantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Garments.Modules.CashBook.CashTransaction", b =>
+                {
+                    b.HasOne("Garments.Ledger.ChartOfAccount", null)
+                        .WithMany()
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Garments.Ledger.ChartOfAccount", null)
+                        .WithMany()
+                        .HasForeignKey("CounterAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Garments.Ledger.GlEntry", null)
+                        .WithMany()
+                        .HasForeignKey("PostedEntryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Garments.Ledger.GlEntry", null)
+                        .WithMany()
+                        .HasForeignKey("ReversedByEntryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Garments.Platform.Tenancy.Tenant", null)

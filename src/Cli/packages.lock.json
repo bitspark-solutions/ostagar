@@ -46,6 +46,7 @@
         "dependencies": {
           "Garments.Core": "[1.0.0, )",
           "Garments.Ledger": "[1.0.0, )",
+          "Garments.Modules.CashBook": "[1.0.0, )",
           "Garments.Platform": "[1.0.0, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[10.0.13, )",
           "Microsoft.EntityFrameworkCore": "[10.0.13, )",
@@ -57,6 +58,13 @@
         "type": "Project",
         "dependencies": {
           "Garments.Core": "[1.0.0, )"
+        }
+      },
+      "garments.modules.cashbook": {
+        "type": "Project",
+        "dependencies": {
+          "Garments.Core": "[1.0.0, )",
+          "Garments.Ledger": "[1.0.0, )"
         }
       },
       "garments.platform": {

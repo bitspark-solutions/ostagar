@@ -414,6 +414,7 @@
           "Garments.Core": "[1.0.0, )",
           "Garments.Data": "[1.0.0, )",
           "Garments.Ledger": "[1.0.0, )",
+          "Garments.Modules.CashBook": "[1.0.0, )",
           "Garments.Modules.Inventory": "[1.0.0, )",
           "Garments.Modules.Payroll": "[1.0.0, )",
           "Garments.Modules.Production": "[1.0.0, )",
@@ -434,6 +435,7 @@
         "dependencies": {
           "Garments.Core": "[1.0.0, )",
           "Garments.Ledger": "[1.0.0, )",
+          "Garments.Modules.CashBook": "[1.0.0, )",
           "Garments.Platform": "[1.0.0, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[10.0.13, )",
           "Microsoft.EntityFrameworkCore": "[10.0.13, )",
@@ -445,6 +447,13 @@
         "type": "Project",
         "dependencies": {
           "Garments.Core": "[1.0.0, )"
+        }
+      },
+      "garments.modules.cashbook": {
+        "type": "Project",
+        "dependencies": {
+          "Garments.Core": "[1.0.0, )",
+          "Garments.Ledger": "[1.0.0, )"
         }
       },
       "garments.modules.inventory": {

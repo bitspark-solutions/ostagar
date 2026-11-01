@@ -86,6 +86,13 @@
           "Garments.Core": "[1.0.0, )"
         }
       },
+      "garments.modules.cashbook": {
+        "type": "Project",
+        "dependencies": {
+          "Garments.Core": "[1.0.0, )",
+          "Garments.Ledger": "[1.0.0, )"
+        }
+      },
       "garments.platform": {
         "type": "Project",
         "dependencies": {

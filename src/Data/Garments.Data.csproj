@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Core\Garments.Core.csproj" />
     <ProjectReference Include="..\Ledger\Garments.Ledger.csproj" />
     <ProjectReference Include="..\Platform\Garments.Platform.csproj" />
+    <ProjectReference Include="..\Modules\CashBook\Garments.Modules.CashBook.csproj" />
   </ItemGroup>
 
 </Project>
