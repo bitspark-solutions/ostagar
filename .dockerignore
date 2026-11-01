@@ -1,0 +1,22 @@
+# Build context for the .NET images is the repo root. Everything the publish step does not need
+# stays out, so a change to docs or the frontend does not bust the NuGet restore cache.
+**/.git
+**/bin
+**/obj
+**/node_modules
+**/.next
+**/*.user
+**/packages.lock.json.sha256
+legacy
+docs
+design
+.plan
+.progress
+.qoder
+tests
+web
+infra
+.github
+.env
+verify-all.sh
+Makefile

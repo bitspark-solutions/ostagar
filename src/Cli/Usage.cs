@@ -12,6 +12,7 @@ internal static class Usage
 
             Commands:
               superuser create   Create the first Owner account for a tenant, offline.
+              db migrate         Apply pending migrations. The compose topology runs this before the API starts.
 
             Options for superuser create:
               --tenant <slug>          Required. The company's url slug.

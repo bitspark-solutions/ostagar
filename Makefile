@@ -9,7 +9,7 @@ SHELL := /bin/bash
 COMPOSE_DEV := docker compose --env-file .env -f infra/compose.dev.yml
 DOTNET := dotnet
 
-.PHONY: help verify verify-quick build restore run test up down dev-reset migrate db-shell
+.PHONY: help verify verify-quick build restore test up down logs dev-reset migrate db-shell
 
 help:
 	@echo "Garments ERP — new tree"
@@ -18,10 +18,11 @@ help:
 	@echo "  make verify-quick  same, skipping container-backed stages"
 	@echo "  make build         build the solution (warnings are errors)"
 	@echo "  make test          run all test projects"
-	@echo "  make up            start dev Postgres + Redis"
-	@echo "  make down          stop dev services"
+	@echo "  make up            build and start the whole stack: postgres, redis, migrate, api (:41983), web (:42107)"
+	@echo "  make down          stop the stack"
+	@echo "  make logs          follow stack logs"
 	@echo "  make dev-reset     destroy the dev database volume (asks first)"
-	@echo "  make migrate       apply EF migrations to the dev database"
+	@echo "  make migrate       apply EF migrations through the one-shot migrate container"
 	@echo "  make db-shell      psql into the dev database"
 
 verify:
@@ -36,17 +37,17 @@ build:
 restore:
 	@$(DOTNET) restore GarmentsERP.slnx
 
-run:
-	@$(DOTNET) run --project src/Api
-
 test:
 	@$(DOTNET) test GarmentsERP.slnx -v q --nologo
 
 up:
-	@$(COMPOSE_DEV) up -d
+	@$(COMPOSE_DEV) up -d --build
 
 down:
 	@$(COMPOSE_DEV) down
+
+logs:
+	@$(COMPOSE_DEV) logs -f
 
 # Destructive and deliberately gated: a password that was once public means the old volume may
 # hold data keyed to credentials we burned during the 2026-10-15 history scrub.
@@ -55,8 +56,11 @@ dev-reset:
 	read answer; \
 	[ "$$answer" = "YES" ] && $(COMPOSE_DEV) down -v && echo "volume removed" || echo "aborted"
 
+# Migrations run through the CLI image, the same path the deploy takes — `dotnet ef` against the
+# host would exercise a route the containers never use.
 migrate:
-	@$(DOTNET) ef database update --project src/Api --startup-project src/Api
+	@$(COMPOSE_DEV) up -d postgres
+	@$(COMPOSE_DEV) run --rm migrate db migrate
 
 db-shell:
 	@$(COMPOSE_DEV) exec postgres psql -U postgres -d garments

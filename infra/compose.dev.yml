@@ -44,5 +44,61 @@ services:
       timeout: 3s
       retries: 10
 
+  # One-shot deploy step: applies pending migrations and exits. The API waits for it, because a
+  # schema change belongs to the deploy, not to whichever web replica came up first.
+  migrate:
+    build:
+      context: ..
+      dockerfile: src/Cli/Dockerfile
+    image: garments-cli:dev
+    container_name: garments-migrate
+    environment:
+      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=garments;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
+    command: ['db', 'migrate']
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+
+  api:
+    build:
+      context: ..
+      dockerfile: src/Api/Dockerfile
+    image: garments-api:dev
+    container_name: garments-api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: 'http://+:8080'
+      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=garments;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
+      GarmentsAuth__SigningKey: ${GarmentsAuth__SigningKey:?set GarmentsAuth__SigningKey in .env}
+      GarmentsAuth__Issuer: ${GarmentsAuth__Issuer:-garments-erp}
+      GarmentsAuth__Audience: ${GarmentsAuth__Audience:-garments-web}
+    # High-range port per the standing port-allocation rule: anything under ~30000 eventually
+    # collides with another project on this machine or a Hyper-V exclusion range.
+    ports: ['${GARMENTS_API_PORT:-41983}:8080']
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ../web
+      # Browser-side origin, not the internal service name: the request leaves the user's browser.
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:41983}
+        NEXT_PUBLIC_DEFAULT_LOCALE: ${NEXT_PUBLIC_DEFAULT_LOCALE:-bn}
+    image: garments-web:dev
+    container_name: garments-web
+    # High-range port per the standing port-allocation rule — 3100 fell inside a Windows
+    # exclusion range (3022-3121 on this machine), the same failure that took 5432 and 5199.
+    ports: ['${GARMENTS_WEB_PORT:-42107}:3000']
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
 volumes:
   pg_data:
