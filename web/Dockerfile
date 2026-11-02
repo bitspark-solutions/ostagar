@@ -39,7 +39,10 @@ COPY --from=builder --chown=app:app /app/.next/static ./.next/static
 USER app
 EXPOSE 3000
 
+# 127.0.0.1 and not localhost: inside this image wget resolves localhost to ::1 first, and node
+# binds 0.0.0.0, so the probe gets connection refused while the app is serving perfectly well. The
+# container then reports unhealthy even though the browser can load the page.
 HEALTHCHECK --interval=15s --timeout=3s --start-period=10s --retries=5 \
-    CMD wget -qO- http://localhost:3000/ > /dev/null || exit 1
+    CMD wget -qO- http://127.0.0.1:3000/ > /dev/null || exit 1
 
 CMD ["node", "server.js"]
