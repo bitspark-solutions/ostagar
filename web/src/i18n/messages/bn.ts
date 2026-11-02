@@ -23,11 +23,12 @@ export const bn: Messages = {
   login: {
     title: 'সাইন ইন',
     subtitle: 'প্রশাসনকর্তা যে তথ্য দিয়েছেন সেটি ব্যবহার করুন।',
+    tenant: 'কোম্পানি',
     email: 'ইমেইল',
     password: 'পাসওয়ার্ড',
     submit: 'সাইন ইন করুন',
     submitting: 'প্রবেশ করা হচ্ছে…',
-    credentialsRequired: 'ইমেইল ও পাসওয়ার্ড দুটোই দরকার।',
+    credentialsRequired: 'কোম্পানি, ইমেইল ও পাসওয়ার্ড তিনটিই দরকার।',
   },
   admin: {
     workspace: 'কর্মক্ষেত্র',

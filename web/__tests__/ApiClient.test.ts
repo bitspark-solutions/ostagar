@@ -42,7 +42,7 @@ describe('L12 single env-driven API client', () => {
     transport.onPost('/api/v1/auth/login').reply(200, { accessToken: 'first-token' })
     transport.onGet('/api/v1/ping').reply(200, {})
 
-    await expect(signIn({ email: 'owner@factory.bd', password: 'issued-by-p1' })).resolves.toBe(true)
+    await expect(signIn({ tenantSlug: 'acme', email: 'owner@factory.bd', password: 'issued-by-p1' })).resolves.toBe(true)
     await apiClient.get('/api/v1/ping')
 
     const login = transport.history.post[0]
@@ -59,21 +59,21 @@ describe('L12 single env-driven API client', () => {
   it('reports "not signed in" when the server hands back no token', async () => {
     transport.onPost('/api/v1/auth/login').reply(200, {})
 
-    await expect(signIn({ email: 'owner@factory.bd', password: 'issued-by-p1' })).resolves.toBe(false)
+    await expect(signIn({ tenantSlug: 'acme', email: 'owner@factory.bd', password: 'issued-by-p1' })).resolves.toBe(false)
     expect(accessTokenStore.read()).toBeNull()
   })
 
   it('maps transport failures onto kinds the UI can translate', async () => {
     transport.onPost('/api/v1/auth/login').reply(401, {})
 
-    const unauthorized = await signIn({ email: 'owner@factory.bd', password: 'wrong' }).catch((error: unknown) => error)
+    const unauthorized = await signIn({ tenantSlug: 'acme', email: 'owner@factory.bd', password: 'wrong' }).catch((error: unknown) => error)
 
     expect(unauthorized).toBeInstanceOf(ApiError)
     expect((unauthorized as ApiError).kind).toBe('unauthorized')
 
     transport.onPost('/api/v1/auth/login').reply(500, {})
 
-    const rejected = await signIn({ email: 'owner@factory.bd', password: 'x' }).catch((error: unknown) => error)
+    const rejected = await signIn({ tenantSlug: 'acme', email: 'owner@factory.bd', password: 'x' }).catch((error: unknown) => error)
 
     expect((rejected as ApiError).status).toBe(500)
   })

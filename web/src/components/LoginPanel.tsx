@@ -20,7 +20,7 @@ import type { MessageKey } from '@/i18n/MessageKey'
 
 const dashboardPath = '/admin/dashboard'
 
-const noCredentials: LoginCredentials = { email: '', password: '' }
+const noCredentials: LoginCredentials = { tenantSlug: '', email: '', password: '' }
 
 export function LoginPanel() {
   const t = useTranslations()
@@ -33,7 +33,11 @@ export function LoginPanel() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    if (credentials.email.length === 0 || credentials.password.length === 0) {
+    if (
+      credentials.tenantSlug.length === 0 ||
+      credentials.email.length === 0 ||
+      credentials.password.length === 0
+    ) {
       setValidationKey('login.credentialsRequired')
       setFailure(null)
       return
@@ -76,6 +80,14 @@ export function LoginPanel() {
         </Typography>
       </Box>
 
+      <TextField
+        label={t('login.tenant')}
+        autoComplete="organization"
+        value={credentials.tenantSlug}
+        onChange={(event) => {
+          setCredentials((current) => ({ ...current, tenantSlug: event.target.value.trim() }))
+        }}
+      />
       <TextField
         label={t('login.email')}
         type="email"

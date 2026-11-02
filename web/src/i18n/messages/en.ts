@@ -19,11 +19,12 @@ export const en = {
   login: {
     title: 'Sign in',
     subtitle: 'Use the credentials your administrator issued.',
+    tenant: 'Company',
     email: 'Email',
     password: 'Password',
     submit: 'Sign in',
     submitting: 'Signing in…',
-    credentialsRequired: 'Email and password are both required.',
+    credentialsRequired: 'Company, email and password are all required.',
   },
   admin: {
     workspace: 'Workspace',

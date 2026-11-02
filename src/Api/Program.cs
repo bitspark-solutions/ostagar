@@ -35,6 +35,11 @@ builder.Services.AddGarmentsData(DataServiceCollectionExtensions.ReadDatabaseOpt
 // unauthenticated POST /api/AdminSetup/create-admin with it.
 builder.Services.AddGarmentsAuth(AuthServiceCollectionExtensions.ReadAccessTokenOptions(builder.Configuration));
 
+// Cross-origin access is a configured list, not a default: an empty Cors:AllowedOrigins means the
+// browser can never reach this API except same-origin, which is the correct reading of "private"
+// until someone names a web origin.
+builder.Services.AddGarmentsCors(builder.Configuration);
+
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
@@ -48,6 +53,8 @@ if (app.Environment.IsProduction())
         context => !context.Request.Path.StartsWithSegments("/health"),
         branch => branch.UseHttpsRedirection());
 }
+
+app.UseCors();
 
 app.UseAuthentication();
 

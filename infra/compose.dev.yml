@@ -73,6 +73,7 @@ services:
       GarmentsAuth__SigningKey: ${GarmentsAuth__SigningKey:?set GarmentsAuth__SigningKey in .env}
       GarmentsAuth__Issuer: ${GarmentsAuth__Issuer:-garments-erp}
       GarmentsAuth__Audience: ${GarmentsAuth__Audience:-garments-web}
+      Cors__AllowedOrigins__0: 'http://localhost:${GARMENTS_WEB_PORT:-42107}'
     # High-range port per the standing port-allocation rule: anything under ~30000 eventually
     # collides with another project on this machine or a Hyper-V exclusion range.
     ports: ['${GARMENTS_API_PORT:-41983}:8080']
