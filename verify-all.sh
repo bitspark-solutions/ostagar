@@ -32,13 +32,68 @@ step() {
   rm -f "$log"
 }
 
+# A test step that runs nothing is not a pass. `dotnet test --no-build` exits 0 with an empty log when
+# the project was never compiled — which is what happens to any test project left out of the solution:
+# the build stage skips it, `--no-build` skips it again, and the gate prints PASS over zero tests. This
+# reads the summary and fails unless tests actually ran.
+step_tests() {
+  local name="$1"; shift
+  local log; log="$(mktemp)"
+  printf '\n\033[1m▶ %s\033[0m\n' "$name"
+  if "$@" > "$log" 2>&1; then
+    local total
+    total=$(
+      {
+        grep -oE 'Total: +[0-9]+' "$log" | awk '{ s += $2 } END { print s + 0 }'
+        grep -oE 'Tests: +[0-9]+ passed' "$log" | awk '{ s += $2 } END { print s + 0 }'
+      } | awk '{ s += $1 } END { print s + 0 }'
+    )
+    if [ "${total:-0}" -gt 0 ]; then
+      PASSED+=("$name")
+      printf '  \033[32mPASS\033[0m %s \033[2m(%s tests)\033[0m\n' "$name" "$total"
+    else
+      FAILED+=("$name (ran 0 tests)")
+      printf '  \033[31mFAIL\033[0m %s reported success without running a single test.\n' "$name"
+      printf '      The suite was never compiled — check it is listed in %s.\n' "$SOLUTION"
+      tail -n 20 "$log" | sed 's/^/      /'
+    fi
+  else
+    FAILED+=("$name")
+    printf '  \033[31mFAIL\033[0m %s\n' "$name"
+    tail -n 40 "$log" | sed 's/^/      /'
+  fi
+  rm -f "$log"
+}
+
 # ---------------------------------------------------------------- backend
 step "backend: restore" dotnet restore "$SOLUTION"
 step "backend: build (warnings are errors)" dotnet build "$SOLUTION" --no-restore -v q --nologo
 
 # Engineering law L1/L1b/L2/L3/L6/L8. These fail the build, not a reviewer.
-step "architecture: engineering laws" dotnet test tests/Garments.Tests.Architecture --no-build -v q --nologo
-step "unit: domain primitives" dotnet test tests/Garments.Tests.Unit --no-build -v q --nologo
+step_tests "architecture: engineering laws" dotnet test tests/Garments.Tests.Architecture --no-build -v q --nologo
+step_tests "unit: domain primitives" dotnet test tests/Garments.Tests.Unit --no-build -v q --nologo
+
+
+# The vacuity guard above catches a suite that ran nothing, but not why. The cause is a test project
+# sitting on disk while absent from the solution: the build stage compiles 19 projects and never sees
+# the twentieth, so its assembly is missing and `--no-build` reports success over zero tests. Partners
+# passed exactly that way until it was listed — so set membership is a check, not a convention.
+step "tests: every suite is compiled by the solution" bash -c '
+  set -e
+  orphans=""
+  count=0
+  for project in $(find tests -mindepth 2 -maxdepth 2 -name "*.csproj"); do
+    count=$((count + 1))
+    grep -q "Path=\"$project\"" GarmentsERP.slnx || orphans="$orphans  $project"$'\n'
+  done
+  if [ -n "$orphans" ]; then
+    echo "These test projects exist but are NOT listed in GarmentsERP.slnx, so the build never compiles"
+    echo "them and dotnet test --no-build would pass without running a single test:"
+    printf "%s" "$orphans"
+    exit 1
+  fi
+  echo "$count test projects, all listed in the solution"
+'
 
 # Module suites are DISCOVERED, not listed by name. Naming each project here meant a new test project
 # could exist, build, pass review, and never be run by the gate — which is the exact shape of
@@ -56,7 +111,7 @@ done < <(find tests -mindepth 2 -maxdepth 2 -name '*.csproj' \
 
 if [ "${#MODULE_SUITES[@]}" -gt 0 ]; then
   for suite in "${MODULE_SUITES[@]}"; do
-    step "module tests: $(basename "$suite")" dotnet test "$suite" --no-build -v q --nologo
+    step_tests "module tests: $(basename "$suite")" dotnet test "$suite" --no-build -v q --nologo
   done
 else
   printf '\n\033[1m▶ module tests\033[0m\n'
@@ -64,7 +119,7 @@ else
 fi
 # The integration host boots the real Program, which seeds the permission catalogue and therefore
 # needs a live database. It deliberately has no fallback connection string, so the gate provides one.
-step "integration: tenant isolation and ledger invariants on a real database" bash -c '
+step_tests "integration: tenant isolation and ledger invariants on a real database" bash -c '
   set -e
   POSTGRES_PASSWORD=$(grep -E "^POSTGRES_PASSWORD=" .env | cut -d= -f2-)
   export ConnectionStrings__Default="Host=127.0.0.1;Port=6432;Database=garments;Username=postgres;Password=$POSTGRES_PASSWORD"
@@ -151,6 +206,9 @@ if [[ -d web ]]; then
   step "frontend: lint (L12-L15, L17)" bash -c "cd web && npm run lint"
   step "frontend: production build" bash -c "cd web && npm run build"
   step "frontend: route graph closed (L14)" bash -c "cd web && node scripts/check-route-graph.mjs"
+  # 105 jest tests existed while the gate never ran them, so a broken message layer or API client
+  # could ship green. Type-checking proves the code compiles; only these prove it behaves.
+  step_tests "frontend: behaviour tests (jest)" bash -c "cd web && npm test --silent"
 else
   echo "  (web/ not present yet — frontend gate skipped; required from P1 onward)"
 fi
