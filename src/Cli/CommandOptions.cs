@@ -1,4 +1,4 @@
-namespace Garments.Cli;
+namespace Ostagar.Cli;
 
 /// <summary>
 /// Parsed and validated command-line arguments.

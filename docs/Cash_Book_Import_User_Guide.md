@@ -3,7 +3,7 @@
 ## 🚀 **Quick Start Guide**
 
 ### **Step 1: Access the Import Feature**
-1. **Login** to your GarmentsERP system
+1. **Login** to your Ostagar system
 2. Navigate to **Admin Panel** (usually at `/admin`)
 3. Click on the **"Accounting"** card in the admin dashboard
 4. Select **"Cash Book Import"** from the accounting modules

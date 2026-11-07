@@ -37,7 +37,7 @@ var redisCommanderOk = await CheckServicePortAsync("redis-commander", 8081, "Red
 // appsettings.Development.json - FIXED
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=postgres;Port=5432;Database=GarmentsERP_Dev;Username=postgres;Password=REPLACE_ME_POSTGRES_PW",
+    "DefaultConnection": "Host=postgres;Port=5432;Database=Ostagar_Dev;Username=postgres;Password=REPLACE_ME_POSTGRES_PW",
     "Redis": "redis:6379"  // ← Added this
   }
 }
@@ -88,10 +88,10 @@ else
 ### **Development Environment (`docker-compose.dev.yml`)**
 | Service | Container Name | Internal Port | External Port | Middleware Check |
 |---------|---------------|---------------|---------------|------------------|
-| postgres | garments-postgres-dev | 5432 | 5432 | ✅ Database connectivity |
-| redis | garments-redis-dev | 6379 | 6379 | ✅ Redis connectivity |
-| pgadmin | garments-pgadmin-dev | 80 | 5050 | ✅ pgadmin:80 |
-| redis-commander | garments-redis-commander-dev | 8081 | 8081 | ✅ redis-commander:8081 |
+| postgres | ostagar-postgres-dev | 5432 | 5432 | ✅ Database connectivity |
+| redis | ostagar-redis-dev | 6379 | 6379 | ✅ Redis connectivity |
+| pgadmin | ostagar-pgadmin-dev | 80 | 5050 | ✅ pgadmin:80 |
+| redis-commander | ostagar-redis-commander-dev | 8081 | 8081 | ✅ redis-commander:8081 |
 | mailhog | garments-mailhog-dev | 1025/8025 | 1025/8025 | ✅ mailhog:1025 & :8025 |
 | backend | garments-backend-dev | 8080 | 8080 | ✅ Health endpoint |
 | frontend | garments-frontend-dev | 3000 | 3000 | ✅ Health endpoint |
@@ -99,10 +99,10 @@ else
 ### **Production Environment (`docker-compose.yml`)**
 | Service | Container Name | Internal Port | External Port | Middleware Check |
 |---------|---------------|---------------|---------------|------------------|
-| postgres | garments-postgres | 5432 | 5432 | ✅ Database connectivity |
-| redis | garments-redis | 6379 | 6379 | ✅ Redis connectivity |
-| pgadmin | garments-pgadmin | 80 | 5050 | ✅ pgadmin:80 |
-| redis-commander | garments-redis-commander | 8081 | 8081 | ✅ redis-commander:8081 |
+| postgres | ostagar-postgres | 5432 | 5432 | ✅ Database connectivity |
+| redis | ostagar-redis | 6379 | 6379 | ✅ Redis connectivity |
+| pgadmin | ostagar-pgadmin | 80 | 5050 | ✅ pgadmin:80 |
+| redis-commander | ostagar-redis-commander | 8081 | 8081 | ✅ redis-commander:8081 |
 | nginx | garments-nginx | 80/443 | 80/443 | ✅ nginx:80 |
 | backend | garments-backend | 8080 | 8080 | ✅ Health endpoint |
 | frontend | garments-frontend | 3000 | 3000 | ✅ Health endpoint |
@@ -161,7 +161,7 @@ Backend Startup Dependencies:
 ```
 🔍 Starting comprehensive dependency health checks...
 Checking PostgreSQL connection...
-✅ PostgreSQL connection to 'GarmentsERP_Dev': OK
+✅ PostgreSQL connection to 'Ostagar_Dev': OK
 Checking Redis connection...
 Redis ping response: 2.5ms
 ✅ Redis connection and operations: OK

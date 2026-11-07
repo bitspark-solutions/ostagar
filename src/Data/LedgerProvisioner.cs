@@ -1,9 +1,9 @@
-using Garments.Core;
-using Garments.Ledger;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Ledger;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Creates a company's periods, base chart of accounts and standard journals.
@@ -16,7 +16,7 @@ namespace Garments.Data;
 /// ledger arriving inside a period whose name is a lie.
 /// </remarks>
 public sealed class LedgerProvisioner(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     ITenantContext tenantContext) : ILedgerProvisioner
 {
     public async Task ProvisionAsync(int fiscalYear, CancellationToken cancellationToken = default)

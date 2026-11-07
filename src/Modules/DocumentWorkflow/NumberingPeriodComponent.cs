@@ -1,4 +1,4 @@
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Which part of the tenant's calendar splits one document-type sequence into several: none, one

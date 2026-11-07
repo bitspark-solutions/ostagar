@@ -1,10 +1,10 @@
-using Garments.Ledger;
-using Garments.Platform.Tenancy;
+using Ostagar.Ledger;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Registers the two database contexts and the tenant plumbing that goes with them.
@@ -17,13 +17,13 @@ namespace Garments.Data;
 /// </remarks>
 public static class DataServiceCollectionExtensions
 {
-    public static IServiceCollection AddGarmentsData(this IServiceCollection services, GarmentsDatabaseOptions options)
+    public static IServiceCollection AddGarmentsData(this IServiceCollection services, OstagarDatabaseOptions options)
     {
         services.AddSingleton(options);
         services.AddScoped<AmbientTenantContext>();
         services.AddScoped<ITenantContext>(selector => selector.GetRequiredService<AmbientTenantContext>());
 
-        services.AddDbContext<GarmentsDbContext>((provider, builder) =>
+        services.AddDbContext<OstagarDbContext>((provider, builder) =>
         {
             builder.UseNpgsql(options.RuntimeConnectionStringOrDefault());
             builder.AddInterceptors(
@@ -50,24 +50,24 @@ public static class DataServiceCollectionExtensions
     /// <summary>
     /// Reads the settings a host needs, without inventing any of them.
     /// </summary>
-    public static GarmentsDatabaseOptions ReadDatabaseOptions(
+    public static OstagarDatabaseOptions ReadDatabaseOptions(
         Microsoft.Extensions.Configuration.IConfiguration configuration,
-        string connectionStringsSection = GarmentsDatabaseOptions.DefaultConnectionStringsSection)
+        string connectionStringsSection = OstagarDatabaseOptions.DefaultConnectionStringsSection)
     {
         var runtime = configuration.GetConnectionString(connectionStringsSection)
             ?? throw new InvalidOperationException(
                 $"ConnectionStrings:{connectionStringsSection} is not configured, and every tenant-scoped "
                 + "query needs a database to be refused against.");
 
-        var settings = configuration.GetSection(GarmentsDatabaseOptions.SectionName);
-        var configuredRole = settings[nameof(GarmentsDatabaseOptions.RequireTenantScopedPrincipal)];
+        var settings = configuration.GetSection(OstagarDatabaseOptions.SectionName);
+        var configuredRole = settings[nameof(OstagarDatabaseOptions.RequireTenantScopedPrincipal)];
 
-        return new GarmentsDatabaseOptions
+        return new OstagarDatabaseOptions
         {
             ConnectionString = runtime,
-            MigrationConnectionString = configuration.GetConnectionString(GarmentsDatabaseOptions.MigrationConnectionStringKey),
+            MigrationConnectionString = configuration.GetConnectionString(OstagarDatabaseOptions.MigrationConnectionStringKey),
             RequireTenantScopedPrincipal = !bool.TryParse(configuredRole, out var require) || require,
-            MigrateOnStartup = bool.TryParse(settings[nameof(GarmentsDatabaseOptions.MigrateOnStartup)], out var migrate) && migrate,
+            MigrateOnStartup = bool.TryParse(settings[nameof(OstagarDatabaseOptions.MigrateOnStartup)], out var migrate) && migrate,
         };
     }
 }

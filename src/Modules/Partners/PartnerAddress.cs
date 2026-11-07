@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// One of a partner's addresses, owned by the partner and copied onto documents when used.

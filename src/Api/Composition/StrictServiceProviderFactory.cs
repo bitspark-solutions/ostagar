@@ -1,4 +1,4 @@
-namespace Garments.Api.Composition;
+namespace Ostagar.Api.Composition;
 
 /// <summary>
 /// Hardens the service provider against the exact failure that killed the legacy build: 22 of 35

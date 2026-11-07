@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Decides whether a document is safe to print, and hands the renderer the figures to print.

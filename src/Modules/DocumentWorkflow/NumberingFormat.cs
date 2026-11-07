@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Renders a counter value into the string that goes on the paper, and reads it back.

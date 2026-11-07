@@ -1,4 +1,4 @@
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// A general-ledger entry as the ledger holds it, including the link that makes it a correction.

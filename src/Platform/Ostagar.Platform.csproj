@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <!-- The platform layer serves HTTP concerns: it reads the caller from the request, issues the
+         access token, and resolves tenancy per request. Keeping those in a plain classlib would mean
+         either duplicating them into the host or moving the security logic away from its tests. -->
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Ostagar.Core.csproj" />
+  </ItemGroup>
+
+</Project>

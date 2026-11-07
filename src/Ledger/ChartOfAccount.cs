@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// One line of a company's chart of accounts.

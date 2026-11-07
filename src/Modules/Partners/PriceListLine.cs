@@ -1,7 +1,7 @@
 using System.Globalization;
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The price for one style on a partner's list, referenced by style id and held in the list's currency.

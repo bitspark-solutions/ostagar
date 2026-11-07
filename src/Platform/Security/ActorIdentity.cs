@@ -1,4 +1,4 @@
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// The person an action is attributed to.

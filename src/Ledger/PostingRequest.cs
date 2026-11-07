@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// What a source document is asking the ledger to record, before anyone has chosen an entry id, a

@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The partner's code: a sequence value issued by the numbering service, never a string derived from the

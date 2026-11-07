@@ -1,9 +1,9 @@
-using Garments.Ledger;
-using Garments.Modules.CashBook;
+using Ostagar.Ledger;
+using Ostagar.Modules.CashBook;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Maps the cash book's source documents. The invariants that make a posting correct live on the

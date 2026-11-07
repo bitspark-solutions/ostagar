@@ -1,4 +1,4 @@
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// The workflow every document type starts from, so a module adopts a definition instead of inventing

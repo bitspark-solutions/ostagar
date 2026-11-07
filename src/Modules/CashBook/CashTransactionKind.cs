@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// Which way the money moved. The cash book is a two-column book in the the client format its users

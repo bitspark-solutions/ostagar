@@ -1,4 +1,4 @@
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// What happened when a document asked for its number.

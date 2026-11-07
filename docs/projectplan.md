@@ -1,6 +1,6 @@
-# Garments ERP Software
+# Ostagar Software
 
-This repository is for a comprehensive Garments ERP system targeted at small manufacturing and garments businesses. The project uses an **ASP.NET Core Web API backend** and a **Next.js frontend**. This document serves as a detailed prompt and guide outlining our architecture, modules, data models, and user interface designs.
+This repository is for a comprehensive Ostagar system targeted at small manufacturing and garments businesses. The project uses an **ASP.NET Core Web API backend** and a **Next.js frontend**. This document serves as a detailed prompt and guide outlining our architecture, modules, data models, and user interface designs.
 
 ---
 

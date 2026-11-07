@@ -77,7 +77,7 @@ GET  /api/CashBookEntry/contacts        // Get available contacts
 ## 🎯 **How to Use the System**
 
 ### **Step 1: Access the Manual Entry**
-1. Login to GarmentsERP system
+1. Login to Ostagar system
 2. Go to **Admin Panel** → **Accounting**
 3. Click **"Cash Book Entry"** card or **"Manual Cash Book Entry"** button
 

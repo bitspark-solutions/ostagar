@@ -38,7 +38,7 @@
           "Microsoft.IdentityModel.Abstractions": "8.19.2"
         }
       },
-      "garments.core": {
+      "ostagar.core": {
         "type": "Project"
       },
       "Microsoft.IdentityModel.Tokens": {

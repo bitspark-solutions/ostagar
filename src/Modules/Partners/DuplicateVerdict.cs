@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// What a duplicate check concluded, in three answers rather than two.

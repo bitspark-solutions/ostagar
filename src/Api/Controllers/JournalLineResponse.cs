@@ -1,4 +1,4 @@
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// One posted line, as the ledger holds it.

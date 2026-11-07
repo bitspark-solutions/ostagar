@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Decides what a tenant is allowed to change on a numbering scheme that has already issued numbers.

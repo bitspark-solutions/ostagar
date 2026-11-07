@@ -1,4 +1,4 @@
-# Garments ERP - .gitignore
+# Ostagar - .gitignore
 
 # =========================
 # Operating System Files
@@ -590,7 +590,7 @@ sample_csv/
 
 # Transient files planted by LawFirepowerTests to prove each law can fail. If this ever
 # appears in a commit, the test crashed mid-run and the plant was not cleaned up.
-src/Garments.LawProbe/
+src/Ostagar.LawProbe/
 
 # Qoder-managed agent worktrees. These are nested git repositories; committing them writes
 # gitlinks into the project that no clone can resolve. Nothing under .qoder belongs in the tree.

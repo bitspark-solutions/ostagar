@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Core;
+namespace Ostagar.Core;
 
 /// <summary>
 /// An amount in one currency, at that currency's scale.

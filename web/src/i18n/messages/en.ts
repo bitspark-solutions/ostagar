@@ -1,6 +1,6 @@
 export const en = {
   app: {
-    name: 'Garments ERP',
+    name: 'Ostagar',
     sectionAdmin: 'Administration',
   },
   locale: {

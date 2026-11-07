@@ -1,4 +1,4 @@
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// One state a document type can be in, with the stage it belongs to and the two names printed on it.

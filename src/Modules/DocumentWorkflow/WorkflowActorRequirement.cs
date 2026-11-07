@@ -1,4 +1,4 @@
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Who is allowed to perform a transition, declared on the transition rather than written where it is

@@ -1,4 +1,4 @@
-namespace Garments.Core;
+namespace Ostagar.Core;
 
 /// <summary>
 /// Identifies one tenant. Every tenant-scoped table, cache key, queue message, background job and

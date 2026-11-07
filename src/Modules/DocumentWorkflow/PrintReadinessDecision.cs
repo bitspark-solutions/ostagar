@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Whether a document may be printed, and the exact figures and label the print must use.

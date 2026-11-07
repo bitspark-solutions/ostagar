@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// One account as a template says it should exist, before it is a row.

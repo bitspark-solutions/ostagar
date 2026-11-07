@@ -1,4 +1,4 @@
-namespace Garments.Platform.Identity;
+namespace Ostagar.Platform.Identity;
 
 /// <summary>The result of a successful credential check.</summary>
 /// <param name="Token">The signed access token.</param>

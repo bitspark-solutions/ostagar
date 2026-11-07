@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The shape of a payment term, as export garment factories actually agree them.

@@ -1,4 +1,4 @@
-namespace Garments.Platform.Auth;
+namespace Ostagar.Platform.Auth;
 
 /// <summary>Why a sign-in attempt did not succeed. Each value maps to one translatable message.</summary>
 public enum AuthFailureReason

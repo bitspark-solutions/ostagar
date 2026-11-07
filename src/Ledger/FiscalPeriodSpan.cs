@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// A period as the calendar derives it, before it becomes a row.

@@ -1,7 +1,7 @@
-using Garments.Core;
-using Garments.Ledger;
+using Ostagar.Core;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// Builds the ledger request one cash document becomes.

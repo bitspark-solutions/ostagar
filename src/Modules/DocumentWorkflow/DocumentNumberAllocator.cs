@@ -1,7 +1,7 @@
 using System.Globalization;
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Allocates business document numbers — orders, invoices, bills, notes, payroll runs.

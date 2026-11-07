@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// Who the current operation is being done for.

@@ -1,4 +1,4 @@
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// The claim names the product reads, in one place.

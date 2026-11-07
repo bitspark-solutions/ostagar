@@ -1,1 +1,1 @@
-export const localeCookieName = 'garments_locale'
+export const localeCookieName = 'ostagar_locale'

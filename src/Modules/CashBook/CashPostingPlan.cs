@@ -1,6 +1,6 @@
-using Garments.Ledger;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// What <see cref="CashPosting.For"/> decided: a request ready to hand to <see cref="IPoster"/>,

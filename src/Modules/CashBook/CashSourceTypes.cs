@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// The <c>SourceType</c> strings a cash posting stamps on its ledger request.

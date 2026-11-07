@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// One live counter for one scheme in one period: the row the integrator locks before it takes a number.

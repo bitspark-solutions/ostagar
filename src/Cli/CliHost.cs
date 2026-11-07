@@ -1,13 +1,13 @@
-using Garments.Data;
-using Garments.Platform.Rbac;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Data;
+using Ostagar.Platform.Rbac;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Garments.Cli;
+namespace Ostagar.Cli;
 
 /// <summary>
 /// Builds the service container the offline commands run against.
@@ -36,7 +36,7 @@ internal static class CliHost
                 services.AddGarmentsData(databaseOptions);
                 services.AddIdentityCore<Platform.Identity.ApplicationUser>()
                     .AddRoles<Platform.Identity.ApplicationRole>()
-                    .AddEntityFrameworkStores<GarmentsDbContext>();
+                    .AddEntityFrameworkStores<OstagarDbContext>();
                 services.AddHttpContextAccessor();
                 services.AddScoped<ICurrentUser, CurrentUserService>();
                 services.AddScoped<ICurrentActor, CurrentActorService>();

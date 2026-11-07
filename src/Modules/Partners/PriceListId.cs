@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Identity of one price list, so an order line can record which list its price came from.

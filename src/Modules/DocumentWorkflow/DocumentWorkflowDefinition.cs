@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// The whole life of one document type: its states, the moves between them, and which document type

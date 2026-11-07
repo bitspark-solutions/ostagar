@@ -1,7 +1,7 @@
 using System.Globalization;
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// A payment term, validated into one of four shapes, that can state when money is due and how much of an

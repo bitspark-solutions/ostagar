@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// Who performed the current operation, for the audit trail.

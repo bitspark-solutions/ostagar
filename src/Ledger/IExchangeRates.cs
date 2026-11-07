@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// Reads and records the company's effective-dated rate history.

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Reads the tenant boundary straight off the EF model, so "which tables carry tenant data" has one

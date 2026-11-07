@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design document outlines the enhancements needed for the existing Role-Based Access Control (RBAC) system in the Garments ERP application. The current system has a solid foundation but requires specific fixes to eliminate redirect loops, properly assign permissions, and ensure seamless user experience.
+This design document outlines the enhancements needed for the existing Role-Based Access Control (RBAC) system in the Ostagar application. The current system has a solid foundation but requires specific fixes to eliminate redirect loops, properly assign permissions, and ensure seamless user experience.
 
 ## Architecture
 

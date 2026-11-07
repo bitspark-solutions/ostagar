@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// A posting channel, and the thing that owns an entry-number sequence.

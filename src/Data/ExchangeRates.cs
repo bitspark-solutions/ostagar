@@ -1,10 +1,10 @@
-using Garments.Core;
-using Garments.Ledger;
-using Garments.Platform.Audit;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Ledger;
+using Ostagar.Platform.Audit;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Reads and appends the company's effective-dated rate history.
@@ -15,7 +15,7 @@ namespace Garments.Data;
 /// argued over at year end.
 /// </remarks>
 public sealed class ExchangeRates(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     ITenantContext tenantContext,
     IAuditWriter audit) : IExchangeRates
 {

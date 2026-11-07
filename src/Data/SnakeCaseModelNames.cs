@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Rewrites every column name in a model to snake_case.

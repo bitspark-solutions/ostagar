@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Whether a price list states what we charge this partner or what they charge us.

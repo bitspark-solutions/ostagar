@@ -1,7 +1,7 @@
-using Garments.Core;
-using Garments.Ledger;
+using Ostagar.Core;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// A tenant's rule for numbering one document type: a prefix, a fixed width, a period component and

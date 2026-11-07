@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="coverlet.collector" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Api\Ostagar.Api.csproj" />
+    <ProjectReference Include="..\..\src\Core\Ostagar.Core.csproj" />
+    <ProjectReference Include="..\..\src\Data\Ostagar.Data.csproj" />
+    <ProjectReference Include="..\..\src\Ledger\Ostagar.Ledger.csproj" />
+    <ProjectReference Include="..\..\src\Platform\Ostagar.Platform.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Inventory\Ostagar.Modules.Inventory.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Payroll\Ostagar.Modules.Payroll.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Production\Ostagar.Modules.Production.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Purchasing\Ostagar.Modules.Purchasing.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Sales\Ostagar.Modules.Sales.csproj" />
+  </ItemGroup>
+
+</Project>

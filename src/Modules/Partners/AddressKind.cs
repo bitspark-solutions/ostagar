@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Which of a partner's addresses this is, because the one that receives an invoice is not the one the

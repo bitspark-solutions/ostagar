@@ -1,0 +1,54 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
+    <Project Path="src/Api/Ostagar.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Cli/">
+    <Project Path="src/Cli/Ostagar.Cli.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
+    <Project Path="src/Core/Ostagar.Core.csproj" />
+  </Folder>
+  <Folder Name="/src/Data/">
+    <Project Path="src/Data/Ostagar.Data.csproj" />
+  </Folder>
+  <Folder Name="/src/Ledger/">
+    <Project Path="src/Ledger/Ostagar.Ledger.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/CashBook/">
+    <Project Path="src/Modules/CashBook/Ostagar.Modules.CashBook.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/DocumentWorkflow/">
+    <Project Path="src/Modules/DocumentWorkflow/Ostagar.Modules.DocumentWorkflow.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Inventory/">
+    <Project Path="src/Modules/Inventory/Ostagar.Modules.Inventory.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Payroll/">
+    <Project Path="src/Modules/Payroll/Ostagar.Modules.Payroll.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Partners/">
+    <Project Path="src/Modules/Partners/Ostagar.Modules.Partners.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Production/">
+    <Project Path="src/Modules/Production/Ostagar.Modules.Production.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Purchasing/">
+    <Project Path="src/Modules/Purchasing/Ostagar.Modules.Purchasing.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Sales/">
+    <Project Path="src/Modules/Sales/Ostagar.Modules.Sales.csproj" />
+  </Folder>
+  <Folder Name="/src/Platform/">
+    <Project Path="src/Platform/Ostagar.Platform.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ostagar.Tests.Architecture/Ostagar.Tests.Architecture.csproj" />
+    <Project Path="tests/Ostagar.Tests.Integration/Ostagar.Tests.Integration.csproj" />
+    <Project Path="tests/Ostagar.Tests.Modules.CashBook/Ostagar.Tests.Modules.CashBook.csproj" />
+    <Project Path="tests/Ostagar.Tests.Modules.DocumentWorkflow/Ostagar.Tests.Modules.DocumentWorkflow.csproj" />
+    <Project Path="tests/Ostagar.Tests.Modules.Partners/Ostagar.Tests.Modules.Partners.csproj" />
+    <Project Path="tests/Ostagar.Tests.Unit/Ostagar.Tests.Unit.csproj" />
+  </Folder>
+</Solution>

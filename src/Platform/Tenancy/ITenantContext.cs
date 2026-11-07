@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Tenancy;
+namespace Ostagar.Platform.Tenancy;
 
 /// <summary>
 /// The tenant the current operation belongs to.

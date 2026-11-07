@@ -1,6 +1,6 @@
-using Garments.Ledger;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// The shape a numbering scheme must have before any number can be rendered from it.

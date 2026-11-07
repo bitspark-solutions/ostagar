@@ -1,4 +1,4 @@
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// One cash book row as the API returns it, with the entry links resolved.

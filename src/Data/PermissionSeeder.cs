@@ -1,9 +1,9 @@
-using Garments.Core;
-using Garments.Platform.Rbac;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Rbac;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Creates the permission catalogue and the system roles a company starts with.
@@ -14,7 +14,7 @@ namespace Garments.Data;
 /// decorative: the attribute was real, the checks were real, and the table they read was empty.
 /// Idempotent so that "wired into startup" is safe rather than something to remove once things work.
 /// </remarks>
-public sealed class PermissionSeeder(GarmentsDbContext context)
+public sealed class PermissionSeeder(OstagarDbContext context)
 {
     public async Task SeedCatalogueAsync(CancellationToken cancellationToken = default)
     {

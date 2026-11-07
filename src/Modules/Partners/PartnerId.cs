@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The stable identity of one business partner. Never regenerated, never re-derived from a name.

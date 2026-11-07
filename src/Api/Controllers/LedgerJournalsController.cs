@@ -1,13 +1,13 @@
-using Garments.Core;
-using Garments.Data;
-using Garments.Ledger;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Data;
+using Ostagar.Ledger;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// Writing, reading and correcting general-ledger entries over HTTP.
@@ -38,7 +38,7 @@ namespace Garments.Api.Controllers;
 [ApiController]
 [Route("api/v1/ledger/journals")]
 public class LedgerJournalsController(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     IPoster poster,
     ITenantContext tenantContext,
     ICurrentActor actor) : ControllerBase

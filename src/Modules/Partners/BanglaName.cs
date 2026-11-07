@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The partner's name in Bangla script, as its own field rather than an optional extra on the Latin name.

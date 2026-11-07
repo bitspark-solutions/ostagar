@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// Writes a <see cref="PostingRequest"/> into the general ledger, or refuses it.

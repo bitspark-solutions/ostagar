@@ -1,4 +1,4 @@
-namespace Garments.Platform.Audit;
+namespace Ostagar.Platform.Audit;
 
 /// <summary>
 /// What happened to the action that was attempted. Kept to three values because a fourth would be a

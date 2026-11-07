@@ -1,9 +1,9 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Gives a table the three things that make its tenancy real, in one place.
@@ -14,7 +14,7 @@ namespace Garments.Data;
 /// that, and the converter keeps <c>tenant_id</c> type-compatible with the directory's primary key so
 /// the foreign key can exist at all.
 ///
-/// Extracted from <see cref="GarmentsDbContext"/> when the ledger was mapped, because the same three
+/// Extracted from <see cref="OstagarDbContext"/> when the ledger was mapped, because the same three
 /// decisions have to hold for every tenant-owned table and two copies of them would drift into a
 /// schema where one table is silently weaker than the rest.
 /// </remarks>

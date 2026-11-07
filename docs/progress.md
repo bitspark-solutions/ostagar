@@ -1,7 +1,7 @@
-# Garments ERP Development Progress
+# Ostagar Development Progress
 
 ## Project Overview
-Building a comprehensive Garments ERP system with ASP.NET Core Web API backend and Next.js frontend.
+Building a comprehensive Ostagar system with ASP.NET Core Web API backend and Next.js frontend.
 
 ## Latest Progress — Journal Entry Management (2025-09-01)
 - Frontend enhancements:

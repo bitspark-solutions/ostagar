@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// One identifier a partner holds, validated on entry so that no identifier in this system is a blob of

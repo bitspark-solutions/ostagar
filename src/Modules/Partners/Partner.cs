@@ -1,7 +1,7 @@
 using System.Globalization;
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// One business this factory trades with, seen as a single identity that may hold two capabilities.

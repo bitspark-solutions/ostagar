@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// The rate at which one currency converted into the company's own, from a date forward.

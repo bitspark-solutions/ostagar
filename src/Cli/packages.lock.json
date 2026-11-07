@@ -38,39 +38,39 @@
           "Microsoft.IdentityModel.Abstractions": "8.19.2"
         }
       },
-      "garments.core": {
+      "ostagar.core": {
         "type": "Project"
       },
-      "garments.data": {
+      "ostagar.data": {
         "type": "Project",
         "dependencies": {
-          "Garments.Core": "[1.0.0, )",
-          "Garments.Ledger": "[1.0.0, )",
-          "Garments.Modules.CashBook": "[1.0.0, )",
-          "Garments.Platform": "[1.0.0, )",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "[10.0.13, )",
           "Microsoft.EntityFrameworkCore": "[10.0.13, )",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.13, )",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.3, )"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.3, )",
+          "Ostagar.Core": "[1.0.0, )",
+          "Ostagar.Ledger": "[1.0.0, )",
+          "Ostagar.Modules.CashBook": "[1.0.0, )",
+          "Ostagar.Platform": "[1.0.0, )"
         }
       },
-      "garments.ledger": {
+      "ostagar.ledger": {
         "type": "Project",
         "dependencies": {
-          "Garments.Core": "[1.0.0, )"
+          "Ostagar.Core": "[1.0.0, )"
         }
       },
-      "garments.modules.cashbook": {
+      "ostagar.modules.cashbook": {
         "type": "Project",
         "dependencies": {
-          "Garments.Core": "[1.0.0, )",
-          "Garments.Ledger": "[1.0.0, )"
+          "Ostagar.Core": "[1.0.0, )",
+          "Ostagar.Ledger": "[1.0.0, )"
         }
       },
-      "garments.platform": {
+      "ostagar.platform": {
         "type": "Project",
         "dependencies": {
-          "Garments.Core": "[1.0.0, )",
+          "Ostagar.Core": "[1.0.0, )",
           "System.IdentityModel.Tokens.Jwt": "[8.19.2, )"
         }
       },

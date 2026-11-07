@@ -1,14 +1,14 @@
-using Garments.Platform.Tenancy;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Maps the tenant directory table once, for every context that needs to read it.
 /// </summary>
 /// <remarks>
 /// Shared on purpose. <see cref="TenantDirectoryDbContext"/> has to resolve a login slug into a tenant
-/// before any tenant is known, and <see cref="GarmentsDbContext"/> owns the same table through its
+/// before any tenant is known, and <see cref="OstagarDbContext"/> owns the same table through its
 /// foreign keys. Two hand-written copies of one mapping drift, and the drift is invisible until a
 /// production read fails on a column the migration never created.
 /// </remarks>

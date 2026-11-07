@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// The accounts every company starts with, and the hierarchy they form.

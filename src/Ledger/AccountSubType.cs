@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// What an account is <i>for</i>, which is what decides where it appears on a statement.

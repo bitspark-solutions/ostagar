@@ -1,4 +1,4 @@
-namespace Garments.Platform.Identity;
+namespace Ostagar.Platform.Identity;
 
 /// <summary>
 /// How access tokens are minted and validated.
@@ -12,7 +12,7 @@ namespace Garments.Platform.Identity;
 /// </remarks>
 public sealed class AccessTokenOptions
 {
-    public const string SectionName = "GarmentsAuth";
+    public const string SectionName = "OstagarAuth";
 
     public required string Issuer { get; init; }
 
@@ -38,7 +38,7 @@ public sealed class AccessTokenOptions
         if (string.IsNullOrWhiteSpace(SigningKey) || SigningKey.Length < 32)
         {
             throw new InvalidOperationException(
-                "GarmentsAuth:SigningKey must be at least 32 characters of real entropy. It is read from "
+                "OstagarAuth:SigningKey must be at least 32 characters of real entropy. It is read from "
                 + "the environment and deliberately has no default — a generated or committed key means "
                 + "anyone can mint a token for any tenant.");
         }

@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Tenancy;
+namespace Ostagar.Platform.Tenancy;
 
 /// <summary>
 /// A cost-bearing section of a factory — cutting, sewing, finishing, packing, stores, accounts. Payroll

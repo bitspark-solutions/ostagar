@@ -1,7 +1,7 @@
 using System.Globalization;
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// A partner's agreed prices for one direction and one currency, over a stated period.

@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// The cash book's own rules, checked before the ledger is asked anything.

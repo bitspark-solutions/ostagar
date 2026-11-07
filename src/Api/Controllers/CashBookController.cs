@@ -1,14 +1,14 @@
-using Garments.Core;
-using Garments.Data;
-using Garments.Ledger;
-using Garments.Modules.CashBook;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Data;
+using Ostagar.Ledger;
+using Ostagar.Modules.CashBook;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// The daily cash book over HTTP: receipts and payments that post through the ledger, never beside it.
@@ -33,7 +33,7 @@ namespace Garments.Api.Controllers;
 [ApiController]
 [Route("api/v1/cash-book/transactions")]
 public class CashBookController(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     IPoster poster,
     ICurrentActor actor) : ControllerBase
 {

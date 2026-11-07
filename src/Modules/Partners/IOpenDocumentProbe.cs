@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Asks whether a partner still has work in flight, which is what decides whether it can be deactivated or

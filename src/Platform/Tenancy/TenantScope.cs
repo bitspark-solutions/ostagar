@@ -1,7 +1,7 @@
-using Garments.Core;
+using Ostagar.Core;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Platform.Tenancy;
+namespace Ostagar.Platform.Tenancy;
 
 /// <summary>
 /// Opens a dependency-injection scope that is scoped to a tenant.

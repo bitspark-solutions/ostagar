@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Tenancy;
+namespace Ostagar.Platform.Tenancy;
 
 /// <summary>
 /// One tenant: a single garment factory or trading company using the product.

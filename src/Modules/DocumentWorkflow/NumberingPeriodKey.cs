@@ -1,13 +1,13 @@
 using System.Globalization;
-using Garments.Ledger;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// The one-period key a document-number counter belongs to, derived from the tenant's fiscal calendar.
 /// </summary>
 /// <remarks>
-/// Derived through <see cref="Garments.Ledger.FiscalCalendar"/> rather than from the date's own year,
+/// Derived through <see cref="Ostagar.Ledger.FiscalCalendar"/> rather than from the date's own year,
 /// because a July-start fiscal year spans two calendar years: a delivery note dated January 2027
 /// belongs to fiscal year 2026. Deriving the period from <c>date.Year</c> would silently start the
 /// 2027 counter three periods early, so two documents would carry the same number in a period the

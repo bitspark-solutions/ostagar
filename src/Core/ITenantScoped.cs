@@ -1,4 +1,4 @@
-namespace Garments.Core;
+namespace Ostagar.Core;
 
 /// <summary>
 /// Marks an entity whose rows belong to exactly one tenant. The model builder reads this marker to

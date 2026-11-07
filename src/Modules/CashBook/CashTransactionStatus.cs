@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// Where the document stands. There is deliberately no Draft: a cash book line is written when the

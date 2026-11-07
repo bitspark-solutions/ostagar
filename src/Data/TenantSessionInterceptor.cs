@@ -1,9 +1,9 @@
 using System.Data.Common;
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Writes the resolved tenant into the Postgres session as <c>app.tenant_id</c> the moment a

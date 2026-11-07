@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Garments.Data.Migrations;
+namespace Ostagar.Data.Migrations;
 
 /// <summary>
 /// Creates the two database principals and puts row-level security on every tenant-owned table.

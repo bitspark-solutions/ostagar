@@ -1,11 +1,11 @@
-using Garments.Api.Auth;
-using Garments.Api.Composition;
-using Garments.Api.Health;
-using Garments.Api.Middleware;
-using Garments.Api.Observability;
-using Garments.Data;
-using Garments.Platform.Rbac;
-using Garments.Platform.Tenancy;
+using Ostagar.Api.Auth;
+using Ostagar.Api.Composition;
+using Ostagar.Api.Health;
+using Ostagar.Api.Middleware;
+using Ostagar.Api.Observability;
+using Ostagar.Data;
+using Ostagar.Platform.Rbac;
+using Ostagar.Platform.Tenancy;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +16,7 @@ builder.Host.UseStrictServiceProvider();
 builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
-    .Enrich.WithProperty("Application", "GarmentsERP"));
+    .Enrich.WithProperty("Application", "Ostagar"));
 
 // Controllers before authorization, so the pipeline order cannot drift: an authorization service
 // without a controller pipeline hides nothing, it just has nothing to protect.
@@ -33,7 +33,7 @@ builder.Services.AddGarmentsData(DataServiceCollectionExtensions.ReadDatabaseOpt
 // Deny by default. An endpoint that is public is public because it is written down, not because
 // nobody remembered to lock it. The legacy build shipped a bare AddAuthorization() and an
 // unauthenticated POST /api/AdminSetup/create-admin with it.
-builder.Services.AddGarmentsAuth(AuthServiceCollectionExtensions.ReadAccessTokenOptions(builder.Configuration));
+builder.Services.AddOstagarAuth(AuthServiceCollectionExtensions.ReadAccessTokenOptions(builder.Configuration));
 
 // Cross-origin access is a configured list, not a default: an empty Cors:AllowedOrigins means the
 // browser can never reach this API except same-origin, which is the correct reading of "private"

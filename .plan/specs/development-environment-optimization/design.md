@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design optimizes the Docker-based development environment for GarmentsERP by implementing multi-stage builds, improved health checks, efficient caching strategies, and streamlined development workflows. The solution focuses on reducing build times, improving reliability, and enhancing developer experience.
+This design optimizes the Docker-based development environment for Ostagar by implementing multi-stage builds, improved health checks, efficient caching strategies, and streamlined development workflows. The solution focuses on reducing build times, improving reliability, and enhancing developer experience.
 
 ## Architecture
 

@@ -1,4 +1,4 @@
-const accessTokenKey = 'garments.accessToken'
+const accessTokenKey = 'ostagar.accessToken'
 
 export class AccessTokenStore {
   private readStorage(): Storage | null {

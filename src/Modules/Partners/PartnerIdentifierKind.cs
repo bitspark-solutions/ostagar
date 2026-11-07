@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The identifiers a Bangladeshi garment business is actually found holding, and the only kinds a partner

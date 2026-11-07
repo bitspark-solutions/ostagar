@@ -1,4 +1,4 @@
-namespace Garments.Core;
+namespace Ostagar.Core;
 
 /// <summary>
 /// An ISO 4217 currency code, validated on construction.

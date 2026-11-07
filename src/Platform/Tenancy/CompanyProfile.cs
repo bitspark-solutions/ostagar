@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Tenancy;
+namespace Ostagar.Platform.Tenancy;
 
 /// <summary>
 /// The one company record a tenant owns: what appears on its letterhead, its invoices and its statutory

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// A reference to one style in the inventory catalogue, held as an id and nothing else.

@@ -1,4 +1,4 @@
-namespace Garments.Platform.Failures;
+namespace Ostagar.Platform.Failures;
 
 /// <summary>
 /// Credentials did not open a session. One message for wrong password, unknown user, inactive user and

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Api.Composition;
+namespace Ostagar.Api.Composition;
 
 /// <summary>
 /// Cross-origin access, configured rather than assumed.

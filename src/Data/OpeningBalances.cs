@@ -1,9 +1,9 @@
-using Garments.Core;
-using Garments.Ledger;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Ledger;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Turns a hand-written opening balance sheet into one posted journal entry.
@@ -33,7 +33,7 @@ namespace Garments.Data;
 /// </para>
 /// </remarks>
 public sealed class OpeningBalances(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     ITenantContext tenantContext,
     IPoster poster) : IOpeningBalances
 {

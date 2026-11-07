@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Applies pending migrations using the migration principal.
@@ -11,7 +11,7 @@ namespace Garments.Data;
 /// separate object also keeps <c>MigrateOnStartup</c> from quietly becoming "the web process owns the
 /// schema".
 /// </remarks>
-public sealed class MigrationRunner(GarmentsDatabaseOptions options)
+public sealed class MigrationRunner(OstagarDatabaseOptions options)
 {
     public async Task<IReadOnlyList<string>> ApplyPendingAsync(CancellationToken cancellationToken = default)
     {
@@ -23,9 +23,9 @@ public sealed class MigrationRunner(GarmentsDatabaseOptions options)
         return applied;
     }
 
-    private static GarmentsDbContext CreateContext(string connectionString) =>
+    private static OstagarDbContext CreateContext(string connectionString) =>
         new(
-            new DbContextOptionsBuilder<GarmentsDbContext>()
+            new DbContextOptionsBuilder<OstagarDbContext>()
                 .UseNpgsql(connectionString)
                 .Options,
             new Platform.Tenancy.AmbientTenantContext());

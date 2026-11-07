@@ -1,4 +1,4 @@
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>Payload for creating a department inside the caller's own company.</summary>
 /// <param name="Code">Short stable identifier used on reports.</param>

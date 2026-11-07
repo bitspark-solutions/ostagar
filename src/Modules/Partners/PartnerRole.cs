@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// What a partner is <em>to us</em>, which is a capability on one identity rather than a kind of record.

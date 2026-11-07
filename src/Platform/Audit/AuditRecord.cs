@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Platform.Audit;
+namespace Ostagar.Platform.Audit;
 
 /// <summary>
 /// What the application is asking to be recorded.

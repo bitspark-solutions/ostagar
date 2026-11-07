@@ -1,4 +1,4 @@
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// Payload for correcting a posted entry by posting its mirror.

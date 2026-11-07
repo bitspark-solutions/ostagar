@@ -1,4 +1,4 @@
-# MASTER PLAN — Garments ERP, greenfield rebuild
+# MASTER PLAN — Ostagar, greenfield rebuild
 
 **Status:** Approved for execution · **Owner:** Mohsin · **Date:** 2026-10-16
 **Legacy tree:** `master` @ `176b9b7`, 108 commits, to be tagged `legacy-final` and frozen read-only.
@@ -191,14 +191,14 @@ infra/                 compose.dev.yml  compose.prod.yml  ci/  observability/
 **Diagnosis, corrected on inspection.** `Platform` currently holds two things that must not be in the
 same project: the **domain entities** (`Tenant`, `CompanyProfile`, `Department`, `ResourceAction`,
 `RoleGrant`, `AuditLogEntry`, `ApplicationUser`, `ApplicationRole`) and the **persistence layer** that
-maps them (`GarmentsDbContext`, migrations, `TenantIdConverter`, `RlsSafetyProbe`, `MigrationRunner`),
+maps them (`OstagarDbContext`, migrations, `TenantIdConverter`, `RlsSafetyProbe`, `MigrationRunner`),
 plus services that use that context directly (`PermissionSeeder`, `TenantDirectory`).
 
 The dependency runs **both** ways, verified by grep rather than assumed:
 
 ```
-Platform/Rbac/PermissionSeeder  →  Platform/Data/GarmentsDbContext   (needs the context)
-Platform/Data/GarmentsDbContext →  Platform/Tenancy/Tenant, Rbac/…   (maps the entities)
+Platform/Rbac/PermissionSeeder  →  Platform/Data/OstagarDbContext   (needs the context)
+Platform/Data/OstagarDbContext →  Platform/Tenancy/Tenant, Rbac/…   (maps the entities)
 ```
 
 So creating a `Data` project alone does **not** break the cycle — `Data` would need `Platform` for the
@@ -214,8 +214,8 @@ Core      primitives + ITenantScoped (moved down from Platform.Tenancy)
 Platform  domain entities and pure services: tenancy context, RBAC model, audit model,
           identity users, token issuing, current-user reads.  NO DbContext reference.
 Ledger    ledger entities and rules                            → Core
-Data      GarmentsDbContext, migrations, design-time factory, TenantEntityConfiguration,
-          SnakeCaseModelNames, TenantIdConverter, TenantOwnedTables, GarmentsDatabaseOptions,
+Data      OstagarDbContext, migrations, design-time factory, TenantEntityConfiguration,
+          SnakeCaseModelNames, TenantIdConverter, TenantOwnedTables, OstagarDatabaseOptions,
           RlsSafetyProbe, MigrationRunner, and the two context-using services
           (TenantDirectory, PermissionSeeder)                   → Core, Platform, Ledger
 Api / Cli composition root, controllers, middleware, DI wiring  → Data, Platform, Ledger
@@ -230,7 +230,7 @@ concrete context owning the tenant query filters. Hiding it behind an interface 
 rules easier to bypass, which is the opposite of this project's direction.
 
 **Closed in P2.** The split ran as recorded: `git mv` first, then namespaces in one pass, then build.
-`src/Data/Garments.Data.csproj` now holds both contexts, the migrations, the two tenant interceptors,
+`src/Data/Ostagar.Data.csproj` now holds both contexts, the migrations, the two tenant interceptors,
 `TenantDirectory`, `PermissionSeeder` and `LedgerModelConfiguration`; `Platform` compiles with no EF
 package at all, and `Ledger` references only `Core`. `ITenantScoped` moved to `Core` — the marker has to
 sit below every project that implements it, and putting it beside the entities is what forced the merge.
@@ -238,8 +238,8 @@ sit below every project that implements it, and putting it beside the entities i
 Two things the plan did not predict:
 
 - Relative namespace names broke, not the usings. Code written as `new Tenancy.AmbientTenantContext()`
-  resolved because the file sat in `Garments.Platform.Data` and `Tenancy` was a sibling. From
-  `Garments.Data` it is not, so eleven call sites needed `Platform.` qualification. The usings, which
+  resolved because the file sat in `Ostagar.Platform.Data` and `Tenancy` was a sibling. From
+  `Ostagar.Data` it is not, so eleven call sites needed `Platform.` qualification. The usings, which
   is what the plan warned about, needed only five edits.
 - `Platform` still compiles without `Microsoft.AspNetCore.Identity.EntityFrameworkCore`, because
   `IdentityUser`, `IdentityRole` and `UserManager` are all in the ASP.NET Core shared framework. Only
@@ -248,7 +248,7 @@ Two things the plan did not predict:
 **Kept closed by L18.** A law rather than a review note, because the fusion is invisible in any single
 file: one navigation attribute on a domain entity starts the cycle, and by the time it shows up in a
 diff the way out is a refactor of both sides. L18 fails any domain project that references
-`Garments.Data`, takes an EF package, or writes an EF `using` — and its firepower probe plants exactly
+`Ostagar.Data`, takes an EF package, or writes an EF `using` — and its firepower probe plants exactly
 that, so the law is known to be able to fail.
 
 **Rejected alternatives, recorded so they are not re-litigated.**
@@ -286,7 +286,7 @@ The failure mode of the previous build was not ignorance, it was **no gate**. Ea
 | L15 | Design tokens have one source. No inline hex/`rgba` literals in components (~40 in the old trial balance alone). | Stylelint/ESLint rule; token file is the only place colours exist. |
 | L16 | No dead code ships. Unreachable components are deleted in the phase that replaces them. | Bundle/Knit coverage + explicit "components reachable" report per gate. |
 | L17 | **Every user-facing string goes through a translation layer from P0.** The buyer is a Bangladeshi factory owner; the operating language is Bangla, with English retained for reports and account codes. Retrofitting i18n into a finished app is the expensive version of this. | ESLint rule failing any hardcoded JSX string; CI asserts no untranslated keys in the shipped bundle. Postgres collation and number/date formatting verified with Bangla data at the P4 gate, not discovered later. |
-| L18 | **Persistence knowledge lives in one project.** No domain project may reference `Garments.Data`, take an Entity Framework package, or write an EF `using`. Hosts (`Api`, `Cli`) are exempt because a composition root must register a context; a domain project has no such excuse. Found in P2 as §2.7. | csproj scan plus a source scan of `src/`, with the §2.7 layering as its exemption list. The probe plants a domain file holding a `DbSet` property, so the law is known to fire — the failure mode it prevents is invisible in any single file. |
+| L18 | **Persistence knowledge lives in one project.** No domain project may reference `Ostagar.Data`, take an Entity Framework package, or write an EF `using`. Hosts (`Api`, `Cli`) are exempt because a composition root must register a context; a domain project has no such excuse. Found in P2 as §2.7. | csproj scan plus a source scan of `src/`, with the §2.7 layering as its exemption list. The probe plants a domain file holding a `DbSet` property, so the law is known to fire — the failure mode it prevents is invisible in any single file. |
 
 **Every law must be shown to be capable of failing.** The legacy repository's checks had never been observed to reject anything — a test folder excluded from compilation, a validator never registered, a cache invalidator that logged and returned — which makes a rule that does nothing indistinguishable from a rule that is working. So each law ships with two tests: that it holds on the real tree, and that it fires on a planted known-bad sample. `LawFirepowerTests` writes deliberately non-compliant files under `src/`, re-runs every law, and asserts each one reacts, then cleans up. A law added without a firepower probe is not a law.
 
@@ -335,9 +335,9 @@ Tag `legacy-final`; extract read-only schema + the client CSV mapping into `lega
 
 #### P0 execution record (2026-10-16)
 
-Frozen and restructured: `legacy-final` → `adbc880`. `backend/`, `frontend/`, `nginx/`, `pgadmin/`, `scripts/`, `ssl/` and the old compose/Makefile/solution moved under `legacy/` with `git mv`, so the read-only reference is the whole tree rather than a hand-picked extract; `legacy/Directory.Build.props` severs root build inheritance so the frozen code still builds as it was tagged. New tree: `GarmentsERP.slnx` with `src/{Core,Platform,Ledger,Api,Modules/{Inventory,Purchasing,Sales,Payroll,Production}}` and `tests/{Unit,Architecture,Integration}`. Docker Desktop was started and is running.
+Frozen and restructured: `legacy-final` → `adbc880`. `backend/`, `frontend/`, `nginx/`, `pgadmin/`, `scripts/`, `ssl/` and the old compose/Makefile/solution moved under `legacy/` with `git mv`, so the read-only reference is the whole tree rather than a hand-picked extract; `legacy/Directory.Build.props` severs root build inheritance so the frozen code still builds as it was tagged. New tree: `Ostagar.slnx` with `src/{Core,Platform,Ledger,Api,Modules/{Inventory,Purchasing,Sales,Payroll,Production}}` and `tests/{Unit,Architecture,Integration}`. Docker Desktop was started and is running.
 
-The law checkers are code, not prose — L1, L1b, L2, L3, L6 and L8 live in `tests/Garments.Tests.Architecture` and fail the build. `Directory.Packages.props` pins the whole tree to `net10.0` + EF Core 10.0.13 + Npgsql 10.0.3, ending the mixed 8.0.x split that caused the legacy damage. `verify-all.sh` is the single gate command and CI runs the same steps.
+The law checkers are code, not prose — L1, L1b, L2, L3, L6 and L8 live in `tests/Ostagar.Tests.Architecture` and fail the build. `Directory.Packages.props` pins the whole tree to `net10.0` + EF Core 10.0.13 + Npgsql 10.0.3, ending the mixed 8.0.x split that caused the legacy damage. `verify-all.sh` is the single gate command and CI runs the same steps.
 
 Three things this phase surfaced that are worth keeping:
 

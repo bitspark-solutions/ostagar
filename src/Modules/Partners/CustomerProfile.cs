@@ -1,6 +1,6 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The customer capability on a partner: the receivable account, the credit limit and the default payment
@@ -26,7 +26,7 @@ public sealed record CustomerProfile
     {
         ArgumentNullException.ThrowIfNull(receivableAccount);
 
-        if (receivableAccount.SubType != Garments.Ledger.AccountSubType.Receivable)
+        if (receivableAccount.SubType != Ostagar.Ledger.AccountSubType.Receivable)
         {
             throw new ArgumentException(
                 $"A customer's account must be a receivable, not '{receivableAccount.SubType}'.",

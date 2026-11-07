@@ -1,4 +1,4 @@
-namespace Garments.Platform.Rbac;
+namespace Ostagar.Platform.Rbac;
 
 /// <summary>
 /// The permission set each system role is created with. A factory with three people uses two of these

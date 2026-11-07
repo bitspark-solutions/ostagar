@@ -1,11 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Garments.Core;
-using Garments.Platform.Security;
+using Ostagar.Core;
+using Ostagar.Platform.Security;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Garments.Platform.Identity;
+namespace Ostagar.Platform.Identity;
 
 /// <summary>
 /// Mints the access token the whole tenancy model hangs on.

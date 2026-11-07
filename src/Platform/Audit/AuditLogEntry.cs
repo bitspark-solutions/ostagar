@@ -1,7 +1,7 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 
-namespace Garments.Platform.Audit;
+namespace Ostagar.Platform.Audit;
 
 /// <summary>
 /// One append-only line in the tenant's audit trail.

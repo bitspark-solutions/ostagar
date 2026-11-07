@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Garments.Data.Migrations
+namespace Ostagar.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddCashTransactions : Migration

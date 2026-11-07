@@ -1,10 +1,10 @@
-using Garments.Core;
-using Garments.Platform.Identity;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Identity;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Platform.Auth;
+namespace Ostagar.Platform.Auth;
 
 /// <summary>
 /// Sign-in across the tenant boundary.

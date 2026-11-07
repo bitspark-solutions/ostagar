@@ -1,8 +1,8 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Identity;
 
-namespace Garments.Platform.Identity;
+namespace Ostagar.Platform.Identity;
 
 /// <summary>
 /// A role owned by one tenant. Roles are per tenant on purpose: a factory's Accounts clerk must not

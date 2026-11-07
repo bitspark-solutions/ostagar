@@ -1,4 +1,4 @@
-namespace Garments.Platform.Rbac;
+namespace Ostagar.Platform.Rbac;
 
 /// <summary>
 /// One persisted <c>(resource, action)</c> pair: the thing a role can be granted.

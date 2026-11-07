@@ -1,5 +1,5 @@
 import coreWebVitals from 'eslint-config-next/core-web-vitals'
-import garments from './rules/GarmentsPlugin.cjs'
+import garments from './rules/OstagarPlugin.cjs'
 
 const lawRules = {
   'garments/no-direct-api-access': ['error', { allow: ['src/api/'] }],

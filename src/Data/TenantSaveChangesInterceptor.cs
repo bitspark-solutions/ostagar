@@ -1,10 +1,10 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Writes the resolved tenant onto every inserted row and refuses to mutate a row that belongs to

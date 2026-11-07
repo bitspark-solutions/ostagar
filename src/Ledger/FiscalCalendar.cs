@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>
 /// Derives fiscal periods from a tenant's fiscal-year start month.

@@ -1,7 +1,7 @@
-using Garments.Platform.Tenancy;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// The only context that may open a database connection without a tenant.
@@ -9,7 +9,7 @@ namespace Garments.Data;
 /// <remarks>
 /// Resolving a login slug into a tenant id cannot be tenant-scoped — the tenant is what the lookup
 /// produces — so <see cref="TenantSessionInterceptor"/> would rightly refuse to open a
-/// connection on <see cref="GarmentsDbContext"/> for it. This context exists instead of an escape
+/// connection on <see cref="OstagarDbContext"/> for it. This context exists instead of an escape
 /// hatch inside that interceptor: it maps the directory table and nothing else, so a missing tenant
 /// can never become a way to read a company's data.
 /// </remarks>

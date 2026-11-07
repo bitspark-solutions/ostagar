@@ -1,9 +1,9 @@
 using System.Text.Json;
-using Garments.Core;
-using Garments.Platform.Audit;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Audit;
+using Ostagar.Platform.Tenancy;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Stages audit entries into the unit of work that is already running.
@@ -30,7 +30,7 @@ namespace Garments.Data;
 /// it does not happen; a ledger whose trail can be quietly omitted is not an auditable ledger.
 /// </para>
 /// </remarks>
-public sealed class DatabaseAuditWriter(GarmentsDbContext context, ITenantContext tenantContext) : IAuditWriter
+public sealed class DatabaseAuditWriter(OstagarDbContext context, ITenantContext tenantContext) : IAuditWriter
 {
     public void Append(AuditRecord record)
     {

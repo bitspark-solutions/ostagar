@@ -1,4 +1,4 @@
-namespace Garments.Cli;
+namespace Ostagar.Cli;
 
 /// <summary>The text printed when the command was invoked without a usable shape.</summary>
 internal static class Usage
@@ -8,7 +8,7 @@ internal static class Usage
     internal static void Print() =>
         Console.Error.WriteLine(
             """
-            garments-cli <command> [options]
+            ostagar-cli <command> [options]
 
             Commands:
               superuser create   Create the first Owner account for a tenant, offline.

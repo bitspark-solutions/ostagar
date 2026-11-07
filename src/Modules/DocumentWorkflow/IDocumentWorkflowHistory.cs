@@ -1,7 +1,7 @@
-using Garments.Core;
-using Garments.Ledger;
+using Ostagar.Core;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// The store for document decisions, and deliberately only a reader and an appender.
@@ -15,7 +15,7 @@ namespace Garments.Modules.DocumentWorkflow;
 /// another entry with <see cref="DocumentWorkflowHistoryEntry.CorrectsEntryId"/> set.
 ///
 /// Implemented beside the database context by the integrator, like the ledger's
-/// <see cref="Garments.Ledger.IPoster"/>: assigning the row id, ordering by
+/// <see cref="Ostagar.Ledger.IPoster"/>: assigning the row id, ordering by
 /// <see cref="DocumentWorkflowHistoryEntry.EntryNumber"/> per document, and enforcing that ordering with a
 /// unique index are storage jobs, not domain ones.
 /// </remarks>

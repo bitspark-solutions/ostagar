@@ -1,8 +1,8 @@
-using Garments.Core;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 
-namespace Garments.Api.Middleware;
+namespace Ostagar.Api.Middleware;
 
 /// <summary>
 /// Resolves the tenant carried by the access token and puts it on the request scope.

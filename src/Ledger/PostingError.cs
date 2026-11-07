@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>One reason a proposed posting was refused, pointing at the offending line where there is one.</summary>
 /// <param name="Code">Machine-readable classification.</param>

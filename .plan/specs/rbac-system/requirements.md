@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document outlines the requirements for fixing and enhancing the existing Role-Based Access Control (RBAC) system for the Garments ERP application. The current system has a solid foundation with ASP.NET Core Identity, JWT authentication, and a comprehensive permission system, but experiences authentication redirect loops, 401 unauthorized errors, and missing permission assignments. This enhancement will fix existing issues, complete the permission assignments, and improve the user experience.
+This document outlines the requirements for fixing and enhancing the existing Role-Based Access Control (RBAC) system for the Ostagar application. The current system has a solid foundation with ASP.NET Core Identity, JWT authentication, and a comprehensive permission system, but experiences authentication redirect loops, 401 unauthorized errors, and missing permission assignments. This enhancement will fix existing issues, complete the permission assignments, and improve the user experience.
 
 ## Current System Analysis
 

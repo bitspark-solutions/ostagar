@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The character and shape rules every free-text field on a partner is put through before it is stored.

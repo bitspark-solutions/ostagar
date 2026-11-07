@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Checks, against the live database, that the connection the application actually uses cannot step
@@ -19,7 +19,7 @@ namespace Garments.Data;
 /// migration that was never applied, or a policy that was edited by hand, fails here rather than
 /// showing a plausible-looking empty screen to the customer.
 /// </remarks>
-public sealed class RlsSafetyProbe(GarmentsDatabaseOptions options)
+public sealed class RlsSafetyProbe(OstagarDatabaseOptions options)
 {
     public async Task EnsureSafeAsync(CancellationToken cancellationToken = default)
     {
@@ -129,9 +129,9 @@ public sealed class RlsSafetyProbe(GarmentsDatabaseOptions options)
     /// The model, without a live connection: it is what "tenant-owned" is defined by, and reading it
     /// must not require the tenant that has not been established yet.
     /// </summary>
-    private static GarmentsDbContext ModelOnlyContext() => new(
-        new DbContextOptionsBuilder<GarmentsDbContext>()
-            .UseNpgsql("Host=localhost;Database=garments;Username=garments;Password=garments")
+    private static OstagarDbContext ModelOnlyContext() => new(
+        new DbContextOptionsBuilder<OstagarDbContext>()
+            .UseNpgsql("Host=localhost;Database=ostagar;Username=garments;Password=garments")
             .Options,
         new Platform.Tenancy.AmbientTenantContext());
 }

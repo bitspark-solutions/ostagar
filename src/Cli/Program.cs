@@ -1,4 +1,4 @@
-using Garments.Cli;
+using Ostagar.Cli;
 
 if (args.Length >= 2 && args[0] == "superuser" && args[1] == "create")
 {

@@ -1,7 +1,7 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 
-namespace Garments.Platform.Rbac;
+namespace Ostagar.Platform.Rbac;
 
 /// <summary>
 /// Gives one role one permission inside one tenant.

@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// How a credit check ended. Four answers, because a caller has to be able to tell "refused" from "refused

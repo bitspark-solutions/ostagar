@@ -1,8 +1,8 @@
-using Garments.Core;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Identity;
 
-namespace Garments.Platform.Identity;
+namespace Ostagar.Platform.Identity;
 
 /// <summary>
 /// A login that belongs to exactly one tenant. The same email address may exist in two tenants without

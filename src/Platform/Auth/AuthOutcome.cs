@@ -1,6 +1,6 @@
-using Garments.Platform.Identity;
+using Ostagar.Platform.Identity;
 
-namespace Garments.Platform.Auth;
+namespace Ostagar.Platform.Auth;
 
 /// <summary>
 /// The result of a sign-in attempt.

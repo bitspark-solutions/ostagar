@@ -11,7 +11,7 @@ import { appTheme } from './AppTheme'
 // Emotion styles are inserted on the client in P0. SSR style streaming is wired up with the
 // design system at P4, where there is a real stylesheet budget to protect.
 export function ThemeProvider({ children }: { readonly children: ReactNode }) {
-  const [cache] = useState(() => createCache({ key: 'garments', prepend: true }))
+  const [cache] = useState(() => createCache({ key: 'ostagar', prepend: true }))
 
   return (
     <CacheProvider value={cache}>

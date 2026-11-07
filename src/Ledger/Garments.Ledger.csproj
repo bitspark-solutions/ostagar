@@ -1,7 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Garments.Core.csproj" />
-  </ItemGroup>
-
-</Project>

@@ -1,6 +1,6 @@
 # 📚 Documentation Index
 
-This folder contains all project documentation for the GarmentsERP system.
+This folder contains all project documentation for the Ostagar system.
 
 ## 📋 **Project Documentation**
 

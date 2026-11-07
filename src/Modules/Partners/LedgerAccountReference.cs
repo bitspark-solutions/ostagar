@@ -1,6 +1,6 @@
-using Garments.Ledger;
+using Ostagar.Ledger;
 
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The ledger account a partner's balance lives on, and — the part that matters — which side of the ledger

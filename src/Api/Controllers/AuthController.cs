@@ -1,9 +1,9 @@
-using Garments.Platform.Auth;
-using Garments.Platform.Security;
+using Ostagar.Platform.Auth;
+using Ostagar.Platform.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>Sign-in and self-introspection.</summary>
 [ApiController]

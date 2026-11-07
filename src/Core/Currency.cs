@@ -1,4 +1,4 @@
-namespace Garments.Core;
+namespace Ostagar.Core;
 
 /// <summary>
 /// A currency and the number of decimal places its amounts carry.

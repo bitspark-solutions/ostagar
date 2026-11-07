@@ -1,7 +1,7 @@
-using Garments.Data;
+using Ostagar.Data;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Cli;
+namespace Ostagar.Cli;
 
 /// <summary>
 /// Applies pending migrations, offline, as the migration principal.

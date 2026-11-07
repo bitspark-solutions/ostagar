@@ -1,4 +1,4 @@
-namespace Garments.Platform.Failures;
+namespace Ostagar.Platform.Failures;
 
 /// <summary>
 /// The request was well-formed and authorised, but the business rule refused it: a duplicate code, a

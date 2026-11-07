@@ -1,9 +1,9 @@
-using Garments.Data;
+using Ostagar.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Api.Controllers;
+namespace Ostagar.Api.Controllers;
 
 /// <summary>
 /// Departments within the caller's own company.
@@ -16,7 +16,7 @@ namespace Garments.Api.Controllers;
 /// </remarks>
 [ApiController]
 [Route("api/v1/departments")]
-public class DepartmentsController(GarmentsDbContext context) : ControllerBase
+public class DepartmentsController(OstagarDbContext context) : ControllerBase
 {
     [HttpGet]
     [Authorize]

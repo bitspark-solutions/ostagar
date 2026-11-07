@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// How a partner can be reached. The set is what Bangladeshi garment trade actually uses, not a generic

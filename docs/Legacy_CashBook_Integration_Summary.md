@@ -1,7 +1,7 @@
 # Client Cash Book Integration - Implementation Summary
 
 ## 📊 **Overview**
-Successfully integrated the client's cash book data structure into the existing GarmentsERP system. The solution provides automated CSV import functionality that maps cash book transactions to proper accounting entries using double-entry bookkeeping principles.
+Successfully integrated the client's cash book data structure into the existing Ostagar system. The solution provides automated CSV import functionality that maps cash book transactions to proper accounting entries using double-entry bookkeeping principles.
 
 ## 🔍 **CSV Data Analysis**
 

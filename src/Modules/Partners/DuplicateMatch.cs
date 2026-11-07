@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// One collision found by the duplicate rule: which existing partner, on which identifier, and how much that

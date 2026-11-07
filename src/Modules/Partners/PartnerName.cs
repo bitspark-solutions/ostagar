@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// One of the three names a business partner is known by. Legal, trading and Bangla are separate fields

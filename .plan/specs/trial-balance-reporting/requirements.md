@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Trial Balance Reporting feature provides comprehensive financial reporting capabilities for the Garments ERP system. This feature enables users to generate trial balance reports for any selected date range, showing the balance of expenses, income, assets, and liabilities. The trial balance is a fundamental accounting report that ensures the accounting equation (Assets = Liabilities + Equity) is balanced and provides insights into the financial position of the business.
+The Trial Balance Reporting feature provides comprehensive financial reporting capabilities for the Ostagar system. This feature enables users to generate trial balance reports for any selected date range, showing the balance of expenses, income, assets, and liabilities. The trial balance is a fundamental accounting report that ensures the accounting equation (Assets = Liabilities + Equity) is balanced and provides insights into the financial position of the business.
 
 ## Requirements
 

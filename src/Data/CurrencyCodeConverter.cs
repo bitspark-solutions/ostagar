@@ -1,7 +1,7 @@
-using Garments.Core;
+using Ostagar.Core;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Stores a <see cref="CurrencyCode"/> as its three-letter ISO 4217 text.

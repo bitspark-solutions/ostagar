@@ -1,4 +1,4 @@
-namespace Garments.Platform.Auth;
+namespace Ostagar.Platform.Auth;
 
 /// <summary>Credentials as submitted to the sign-in endpoint.</summary>
 /// <param name="TenantSlug">Which company is being signed into — the same email may exist in several.</param>

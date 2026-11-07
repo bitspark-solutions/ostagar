@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Thrown when a partner rule refuses an operation. Carries a <see cref="PartnerErrorCode"/> so the refusal

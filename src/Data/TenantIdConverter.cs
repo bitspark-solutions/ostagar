@@ -1,7 +1,7 @@
-using Garments.Core;
+using Ostagar.Core;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Stores <see cref="TenantId"/> as a Postgres <c>uuid</c>.

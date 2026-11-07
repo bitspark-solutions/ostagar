@@ -10,11 +10,11 @@ say "npm (web/)"
 (cd web && npm audit || true)
 
 say "NuGet (solution, incl. transitive)"
-dotnet list GarmentsERP.slnx package --vulnerable --include-transitive | grep -E "no vulnerable|vulnerable" | sort -u || true
+dotnet list Ostagar.slnx package --vulnerable --include-transitive | grep -E "no vulnerable|vulnerable" | sort -u || true
 
-IMAGES=(garments-api:dev garments-cli:dev garments-web:dev garments-postgres:dev garments-redis:dev)
+IMAGES=(ostagar-api:dev ostagar-cli:dev ostagar-web:dev ostagar-postgres:dev ostagar-redis:dev)
 
-say "Docker Scout (note: garments-postgres has a documented base-SBOM ghost — see the register)"
+say "Docker Scout (note: ostagar-postgres has a documented base-SBOM ghost — see the register)"
 for img in "${IMAGES[@]}"; do
   echo "--- $img"
   docker scout cves "$img" 2>&1 | grep -E "vulnerabilities found|No vulnerable packages" || echo "(scout unavailable)"

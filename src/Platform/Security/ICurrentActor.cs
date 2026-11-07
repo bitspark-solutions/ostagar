@@ -1,4 +1,4 @@
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// Reads the authenticated caller for the current operation.

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Routing;
 
-namespace Garments.Api.Health;
+namespace Ostagar.Api.Health;
 
 /// <summary>Maps the health surface onto the endpoint pipeline.</summary>
 internal static class HealthEndpointRouteBuilderExtensions

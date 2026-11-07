@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// Machine-readable reasons a partner rule refused, so a client can translate and a test can assert.

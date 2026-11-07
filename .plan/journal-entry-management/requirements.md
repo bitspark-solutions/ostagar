@@ -2,7 +2,7 @@
 
 ## 🎯 Feature Overview
 
-The Journal Entry Management System is a comprehensive module for viewing, filtering, and managing all credit and debit entries in the GarmentsERP accounting system. This feature provides a centralized interface for accountants and administrators to review, analyze, and manage journal entries with advanced filtering, search, and export capabilities.
+The Journal Entry Management System is a comprehensive module for viewing, filtering, and managing all credit and debit entries in the Ostagar accounting system. This feature provides a centralized interface for accountants and administrators to review, analyze, and manage journal entries with advanced filtering, search, and export capabilities.
 
 ## 📋 Functional Requirements
 
@@ -41,7 +41,7 @@ The Journal Entry Management System is a comprehensive module for viewing, filte
 1. **Responsive Design**
    - Mobile-friendly interface
    - Tablet and desktop optimization
-   - Consistent with existing GarmentsERP design system
+   - Consistent with existing Ostagar design system
 
 2. **Data Visualization**
    - Clear visual distinction between credit and debit entries
@@ -205,7 +205,7 @@ interface JournalEntryFilters {
 ## 🚧 Constraints and Assumptions
 
 ### Technical Constraints
-- Must integrate with existing GarmentsERP architecture
+- Must integrate with existing Ostagar architecture
 - Must maintain backward compatibility with existing data
 - Must support current user authentication system
 - Must work within existing database schema

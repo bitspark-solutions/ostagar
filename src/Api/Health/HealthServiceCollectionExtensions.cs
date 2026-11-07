@@ -1,4 +1,4 @@
-namespace Garments.Api.Health;
+namespace Ostagar.Api.Health;
 
 /// <summary>
 /// Liveness and readiness probes. Deliberately the only anonymous endpoints besides auth, so a

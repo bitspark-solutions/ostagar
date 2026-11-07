@@ -1,4 +1,4 @@
-namespace Garments.Modules.Partners;
+namespace Ostagar.Modules.Partners;
 
 /// <summary>
 /// The vendor capability on a partner: the payable account and the default payment term for what we owe.
@@ -20,7 +20,7 @@ public sealed record VendorProfile
     {
         ArgumentNullException.ThrowIfNull(payableAccount);
 
-        if (payableAccount.SubType != Garments.Ledger.AccountSubType.Payable)
+        if (payableAccount.SubType != Ostagar.Ledger.AccountSubType.Payable)
         {
             throw new ArgumentException(
                 $"A vendor's account must be a payable, not '{payableAccount.SubType}'.",

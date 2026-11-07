@@ -1,7 +1,7 @@
 # Development Guide - Hot Reload Setup
 
 ## Overview
-This guide explains how to use the hot reload development environment for the Garments ERP system.
+This guide explains how to use the hot reload development environment for the Ostagar system.
 
 ## Quick Start
 

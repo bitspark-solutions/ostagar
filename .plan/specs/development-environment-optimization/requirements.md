@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This spec addresses the need to optimize the Docker-based development environment for the GarmentsERP application. The current setup has slow build times, health check issues, and inefficient container management that impacts developer productivity.
+This spec addresses the need to optimize the Docker-based development environment for the Ostagar application. The current setup has slow build times, health check issues, and inefficient container management that impacts developer productivity.
 
 ## Requirements
 

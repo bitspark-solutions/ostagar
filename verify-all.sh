@@ -13,7 +13,7 @@ cd "$(dirname "$0")"
 QUICK=0
 [[ "${1:-}" == "--quick" ]] && QUICK=1
 
-SOLUTION="GarmentsERP.slnx"
+SOLUTION="Ostagar.slnx"
 FAILED=()
 PASSED=()
 
@@ -70,8 +70,8 @@ step "backend: restore" dotnet restore "$SOLUTION"
 step "backend: build (warnings are errors)" dotnet build "$SOLUTION" --no-restore -v q --nologo
 
 # Engineering law L1/L1b/L2/L3/L6/L8. These fail the build, not a reviewer.
-step_tests "architecture: engineering laws" dotnet test tests/Garments.Tests.Architecture --no-build -v q --nologo
-step_tests "unit: domain primitives" dotnet test tests/Garments.Tests.Unit --no-build -v q --nologo
+step_tests "architecture: engineering laws" dotnet test tests/Ostagar.Tests.Architecture --no-build -v q --nologo
+step_tests "unit: domain primitives" dotnet test tests/Ostagar.Tests.Unit --no-build -v q --nologo
 
 
 # The vacuity guard above catches a suite that ran nothing, but not why. The cause is a test project
@@ -84,10 +84,10 @@ step "tests: every suite is compiled by the solution" bash -c '
   count=0
   for project in $(find tests -mindepth 2 -maxdepth 2 -name "*.csproj"); do
     count=$((count + 1))
-    grep -q "Path=\"$project\"" GarmentsERP.slnx || orphans="$orphans  $project"$'\n'
+    grep -q "Path=\"$project\"" Ostagar.slnx || orphans="$orphans  $project"$'\n'
   done
   if [ -n "$orphans" ]; then
-    echo "These test projects exist but are NOT listed in GarmentsERP.slnx, so the build never compiles"
+    echo "These test projects exist but are NOT listed in Ostagar.slnx, so the build never compiles"
     echo "them and dotnet test --no-build would pass without running a single test:"
     printf "%s" "$orphans"
     exit 1
@@ -104,9 +104,9 @@ MODULE_SUITES=()
 while IFS= read -r suite_dir; do
   MODULE_SUITES+=("$suite_dir")
 done < <(find tests -mindepth 2 -maxdepth 2 -name '*.csproj' \
-    ! -name 'Garments.Tests.Architecture.csproj' \
-    ! -name 'Garments.Tests.Unit.csproj' \
-    ! -name 'Garments.Tests.Integration.csproj' \
+    ! -name 'Ostagar.Tests.Architecture.csproj' \
+    ! -name 'Ostagar.Tests.Unit.csproj' \
+    ! -name 'Ostagar.Tests.Integration.csproj' \
     -printf '%h\n' 2>/dev/null | sort -u)
 
 if [ "${#MODULE_SUITES[@]}" -gt 0 ]; then
@@ -122,16 +122,16 @@ fi
 step_tests "integration: tenant isolation and ledger invariants on a real database" bash -c '
   set -e
   POSTGRES_PASSWORD=$(grep -E "^POSTGRES_PASSWORD=" .env | cut -d= -f2-)
-  export ConnectionStrings__Default="Host=127.0.0.1;Port=6432;Database=garments;Username=postgres;Password=$POSTGRES_PASSWORD"
+  export ConnectionStrings__Default="Host=127.0.0.1;Port=6432;Database=ostagar;Username=postgres;Password=$POSTGRES_PASSWORD"
 
   # Bring the developer database up to the current model before testing against it. P2 found the
   # ledger invariant suite failing on a stale schema with an error about Npgsql not knowing the
   # `ltree` type — which reads as a driver bug and is really a migration that was never applied
   # here, because the gate only applied migrations to a throwaway container it then threw away.
-  dotnet ef database update --context GarmentsDbContext \
+  dotnet ef database update --context OstagarDbContext \
     --project src/Data --startup-project src/Api --no-build
 
-  dotnet test tests/Garments.Tests.Integration --no-build -v q --nologo
+  dotnet test tests/Ostagar.Tests.Integration --no-build -v q --nologo
 '
 
 # ---------------------------------------------------------------- boot
@@ -152,18 +152,18 @@ fi
 # nothing to do with the code — and a gate that fails for environmental reasons gets ignored.
 step "app boots and answers /health" bash -c '
   set -e
-  LOG=/tmp/garments-boot.log
+  LOG=/tmp/ostagar-boot.log
   : > "$LOG"
 
   POSTGRES_PASSWORD=$(grep -E "^POSTGRES_PASSWORD=" .env | cut -d= -f2-)
-  export ConnectionStrings__Default="Host=127.0.0.1;Port=6432;Database=garments;Username=postgres;Password=$POSTGRES_PASSWORD"
+  export ConnectionStrings__Default="Host=127.0.0.1;Port=6432;Database=ostagar;Username=postgres;Password=$POSTGRES_PASSWORD"
   export ASPNETCORE_ENVIRONMENT=Development
 
   # The application refuses to start without a signing key rather than generating one, so the gate
   # has to supply the dev key from the untracked .env. If it is missing, this fails loudly — which is
   # the intended behaviour, not a gate bug.
   while IFS= read -r line; do
-    case "$line" in GarmentsAuth__*) export "${line%%=*}=${line#*=}";; esac
+    case "$line" in OstagarAuth__*) export "${line%%=*}=${line#*=}";; esac
   done < .env
 
   dotnet run --project src/Api --no-build --no-launch-profile \
@@ -174,7 +174,7 @@ step "app boots and answers /health" bash -c '
     # dotnet run spawns the real host as a child; killing only the parent leaks the child and
     # squats a port for every later run.
     kill "$PID" 2>/dev/null || true
-    pkill -f "Garments.Api" 2>/dev/null || true
+    pkill -f "Ostagar.Api" 2>/dev/null || true
     wait "$PID" 2>/dev/null || true
   }
   trap cleanup EXIT
@@ -236,18 +236,18 @@ if [[ "$QUICK" -eq 0 ]]; then
 
         # The design-time factory reads this variable, so it must point at the throwaway container;
         # passing --connection alone would be ignored and the gate would migrate the developer database.
-        export ConnectionStrings__Default="Host=127.0.0.1;Port=$PORT;Database=garments;Username=postgres;Password=verify"
+        export ConnectionStrings__Default="Host=127.0.0.1;Port=$PORT;Database=ostagar;Username=postgres;Password=verify"
 
         # The project that holds the migrations is named here, so it is a fact the gate has to keep
         # true. P2 moved them from src/Platform to src/Data; a stale path reads as "No DbContext named
-        # 'GarmentsDbContext' was found", which looks like a broken model and is really the gate
+        # 'OstagarDbContext' was found", which looks like a broken model and is really the gate
         # pointing at the wrong assembly.
-        dotnet ef database update --context GarmentsDbContext \
+        dotnet ef database update --context OstagarDbContext \
           --project src/Data --startup-project src/Api --no-build
 
         # A schema that applies but protects nothing is the failure this whole phase exists to catch.
         # Fed over stdin: writing a Windows path for docker cp is how this went wrong before.
-        docker exec -i "$C" psql -U postgres -d garments -v ON_ERROR_STOP=1 -q -f - \
+        docker exec -i "$C" psql -U postgres -d ostagar -v ON_ERROR_STOP=1 -q -f - \
           < infra/sql/assert-row-level-security.sql
       '
     else

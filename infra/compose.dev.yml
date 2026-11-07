@@ -1,4 +1,4 @@
-name: garments-dev
+name: ostagar-dev
 
 # Dev topology only. The legacy repository had ONE compose file that mixed the application with
 # MailHog, pgAdmin and Redis-Commander and called it production; docs claimed a separate
@@ -20,11 +20,11 @@ services:
       # the stock image's vendored one, whose Go toolchain scores ~60 stdlib CVEs.
       context: ..
       dockerfile: infra/Dockerfile.postgres
-    image: garments-postgres:dev
-    container_name: garments-pg
+    image: ostagar-postgres:dev
+    container_name: ostagar-pg
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
-      POSTGRES_DB: garments
+      POSTGRES_DB: ostagar
       # Deterministic byte collation for identifiers and codes. Bangla ordering is deliberately not
       # left to the server default: it is declared per column as COLLATE "bn-x-icu", so a factory
       # owner searching account names in Bangla gets Bangla ordering on every deployment.
@@ -33,7 +33,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U postgres -d garments']
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d ostagar']
       interval: 5s
       timeout: 3s
       retries: 10
@@ -43,8 +43,8 @@ services:
       # Hardened wrapper (infra/Dockerfile.redis): apk security fixes for the 3.21 stream.
       context: ..
       dockerfile: infra/Dockerfile.redis
-    image: garments-redis:dev
-    container_name: garments-redis
+    image: ostagar-redis:dev
+    container_name: ostagar-redis
     command: ['redis-server', '--save', '', '--appendonly', 'no']
     ports: ['6380:6379']
     healthcheck:
@@ -59,10 +59,10 @@ services:
     build:
       context: ..
       dockerfile: src/Cli/Dockerfile
-    image: garments-cli:dev
-    container_name: garments-migrate
+    image: ostagar-cli:dev
+    container_name: ostagar-migrate
     environment:
-      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=garments;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
+      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=ostagar;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
     command: ['db', 'migrate']
     depends_on:
       postgres:
@@ -73,19 +73,19 @@ services:
     build:
       context: ..
       dockerfile: src/Api/Dockerfile
-    image: garments-api:dev
-    container_name: garments-api
+    image: ostagar-api:dev
+    container_name: ostagar-api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: 'http://+:8080'
-      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=garments;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
-      GarmentsAuth__SigningKey: ${GarmentsAuth__SigningKey:?set GarmentsAuth__SigningKey in .env}
-      GarmentsAuth__Issuer: ${GarmentsAuth__Issuer:-garments-erp}
-      GarmentsAuth__Audience: ${GarmentsAuth__Audience:-garments-web}
-      Cors__AllowedOrigins__0: 'http://localhost:${GARMENTS_WEB_PORT:-42107}'
+      ConnectionStrings__Default: 'Host=postgres;Port=5432;Database=ostagar;Username=postgres;Password=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}'
+      OstagarAuth__SigningKey: ${OstagarAuth__SigningKey:?set OstagarAuth__SigningKey in .env}
+      OstagarAuth__Issuer: ${OstagarAuth__Issuer:-ostagar}
+      OstagarAuth__Audience: ${OstagarAuth__Audience:-ostagar-web}
+      Cors__AllowedOrigins__0: 'http://localhost:${OSTAGAR_WEB_PORT:-42107}'
     # High-range port per the standing port-allocation rule: anything under ~30000 eventually
     # collides with another project on this machine or a Hyper-V exclusion range.
-    ports: ['${GARMENTS_API_PORT:-41983}:8080']
+    ports: ['${OSTAGAR_API_PORT:-41983}:8080']
     depends_on:
       postgres:
         condition: service_healthy
@@ -100,11 +100,11 @@ services:
       args:
         NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:41983}
         NEXT_PUBLIC_DEFAULT_LOCALE: ${NEXT_PUBLIC_DEFAULT_LOCALE:-bn}
-    image: garments-web:dev
-    container_name: garments-web
+    image: ostagar-web:dev
+    container_name: ostagar-web
     # High-range port per the standing port-allocation rule — 3100 fell inside a Windows
     # exclusion range (3022-3121 on this machine), the same failure that took 5432 and 5199.
-    ports: ['${GARMENTS_WEB_PORT:-42107}:3000']
+    ports: ['${OSTAGAR_WEB_PORT:-42107}:3000']
     depends_on:
       api:
         condition: service_healthy

@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// The outcome of validating or planning a cash transaction: either the thing asked for, or every

@@ -1,4 +1,4 @@
-namespace Garments.Modules.CashBook;
+namespace Ostagar.Modules.CashBook;
 
 /// <summary>
 /// Machine-readable reasons a cash transaction is refused, so a client can translate them and a test

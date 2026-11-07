@@ -1,4 +1,4 @@
-namespace Garments.Ledger;
+namespace Ostagar.Ledger;
 
 /// <summary>Machine-readable reasons a proposed posting is not valid.</summary>
 /// <remarks>

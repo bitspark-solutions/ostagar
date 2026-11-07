@@ -1,11 +1,11 @@
-using Garments.Core;
-using Garments.Data;
-using Garments.Platform.Rbac;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Data;
+using Ostagar.Platform.Rbac;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garments.Cli;
+namespace Ostagar.Cli;
 
 /// <summary>
 /// Creates the first account for a company, offline.

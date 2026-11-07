@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Garments.Data.Migrations;
+namespace Ostagar.Data.Migrations;
 
 /// <summary>
 /// Makes the audit trail append-only, which is the property its name promises and the one the schema did

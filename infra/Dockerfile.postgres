@@ -9,7 +9,7 @@
 #    overwrites the stock binary IN PLACE — overwrite, not delete, so the image SBOM
 #    stays truthful (scout does not process whiteouts).
 #
-# Re-scan on bump: docker scout cves garments-postgres:dev
+# Re-scan on bump: docker scout cves ostagar-postgres:dev
 # Builder tracks the CURRENT Go release: stdlib CVEs are fixed by toolchain patches
 # (1.26.9 cleared the Nov 2026 batch; 1.27.x is the current patched stream), so the
 # builder pin must move with every Go security release.

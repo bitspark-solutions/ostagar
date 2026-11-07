@@ -7,7 +7,7 @@
 # both without changing the redis version the stack expects.
 #
 # The official entrypoint is reused verbatim (it uses setpriv, from patched util-linux,
-# to drop privileges — no gosu involved). Re-scan on bump: docker scout cves garments-redis:dev
+# to drop privileges — no gosu involved). Re-scan on bump: docker scout cves ostagar-redis:dev
 FROM redis:7.4-alpine AS entrypoint-source
 
 FROM alpine:3.23 AS build

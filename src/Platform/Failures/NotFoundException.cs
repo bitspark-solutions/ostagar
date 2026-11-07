@@ -1,4 +1,4 @@
-namespace Garments.Platform.Failures;
+namespace Ostagar.Platform.Failures;
 
 /// <summary>
 /// The row the caller named does not exist in the tenant they are scoped to.

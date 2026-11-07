@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace Garments.Api.Observability;
+namespace Ostagar.Api.Observability;
 
 /// <summary>
 /// Composition-root wiring for request logging. Correlation is mandatory: the legacy audit trail

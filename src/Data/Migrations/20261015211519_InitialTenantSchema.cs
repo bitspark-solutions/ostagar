@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Garments.Data.Migrations
+namespace Ostagar.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialTenantSchema : Migration

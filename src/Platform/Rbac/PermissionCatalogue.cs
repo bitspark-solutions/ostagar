@@ -1,4 +1,4 @@
-namespace Garments.Platform.Rbac;
+namespace Ostagar.Platform.Rbac;
 
 /// <summary>
 /// The single source of truth for what can be authorised. The migration seeds these rows and the

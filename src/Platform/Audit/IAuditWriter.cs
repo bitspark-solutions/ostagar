@@ -1,4 +1,4 @@
-namespace Garments.Platform.Audit;
+namespace Ostagar.Platform.Audit;
 
 /// <summary>
 /// Puts entries into the tenant's audit trail.

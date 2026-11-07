@@ -1,16 +1,16 @@
 using System.Text;
-using Garments.Platform.Auth;
-using Garments.Data;
-using Garments.Platform.Identity;
-using Garments.Platform.Rbac;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Platform.Auth;
+using Ostagar.Data;
+using Ostagar.Platform.Identity;
+using Ostagar.Platform.Rbac;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Garments.Api.Auth;
+namespace Ostagar.Api.Auth;
 
 /// <summary>
 /// Registers identity, token validation and the authorisation default.
@@ -23,7 +23,7 @@ namespace Garments.Api.Auth;
 /// </remarks>
 internal static class AuthServiceCollectionExtensions
 {
-    public static IServiceCollection AddGarmentsAuth(
+    public static IServiceCollection AddOstagarAuth(
         this IServiceCollection services,
         AccessTokenOptions tokenOptions)
     {
@@ -32,7 +32,7 @@ internal static class AuthServiceCollectionExtensions
 
         services.AddIdentityCore<ApplicationUser>()
             .AddRoles<ApplicationRole>()
-            .AddEntityFrameworkStores<GarmentsDbContext>();
+            .AddEntityFrameworkStores<OstagarDbContext>();
 
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUser, CurrentUserService>();

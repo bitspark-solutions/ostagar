@@ -1,13 +1,13 @@
-using Garments.Core;
+using Ostagar.Core;
 
-namespace Garments.Modules.DocumentWorkflow;
+namespace Ostagar.Modules.DocumentWorkflow;
 
 /// <summary>
 /// Hands a document its number, and is the only way a module may ask for one.
 /// </summary>
 /// <remarks>
 /// Declared here and implemented beside the database context, exactly as the ledger declares
-/// <see cref="Garments.Ledger.IPoster"/>: taking a number is a domain decision whose every step is a
+/// <see cref="Ostagar.Ledger.IPoster"/>: taking a number is a domain decision whose every step is a
 /// storage step. The implementation's whole job is to bind
 /// <see cref="DocumentNumberAllocator.Allocate"/> to one transaction — select the sequence row for this
 /// tenant, document type and period with <c>SELECT … FOR UPDATE</c>, call the allocator, persist the

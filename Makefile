@@ -12,7 +12,7 @@ DOTNET := dotnet
 .PHONY: help verify verify-quick build restore test up down logs dev-reset migrate db-shell
 
 help:
-	@echo "Garments ERP — new tree"
+	@echo "Ostagar — new tree"
 	@echo ""
 	@echo "  make verify        the gate: build + laws + tests + frontend + empty-db migrations"
 	@echo "  make verify-quick  same, skipping container-backed stages"
@@ -32,13 +32,13 @@ verify-quick:
 	@./verify-all.sh --quick
 
 build:
-	@$(DOTNET) build GarmentsERP.slnx -v q --nologo
+	@$(DOTNET) build Ostagar.slnx -v q --nologo
 
 restore:
-	@$(DOTNET) restore GarmentsERP.slnx
+	@$(DOTNET) restore Ostagar.slnx
 
 test:
-	@$(DOTNET) test GarmentsERP.slnx -v q --nologo
+	@$(DOTNET) test Ostagar.slnx -v q --nologo
 
 up:
 	@$(COMPOSE_DEV) up -d --build
@@ -63,4 +63,4 @@ migrate:
 	@$(COMPOSE_DEV) run --rm migrate db migrate
 
 db-shell:
-	@$(COMPOSE_DEV) exec postgres psql -U postgres -d garments
+	@$(COMPOSE_DEV) exec postgres psql -U postgres -d ostagar

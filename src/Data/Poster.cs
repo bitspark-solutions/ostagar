@@ -1,12 +1,12 @@
 using System.Globalization;
-using Garments.Core;
-using Garments.Ledger;
-using Garments.Platform.Audit;
-using Garments.Platform.Security;
-using Garments.Platform.Tenancy;
+using Ostagar.Core;
+using Ostagar.Ledger;
+using Ostagar.Platform.Audit;
+using Ostagar.Platform.Security;
+using Ostagar.Platform.Tenancy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Turns a <see cref="PostingRequest"/> into a posted general-ledger entry.
@@ -35,7 +35,7 @@ namespace Garments.Data;
 /// </para>
 /// </remarks>
 public sealed class Poster(
-    GarmentsDbContext context,
+    OstagarDbContext context,
     ITenantContext tenantContext,
     ICurrentActor actor,
     IExchangeRates rates,
@@ -242,7 +242,7 @@ public sealed class Poster(
     /// twentieth line as on the first, and twenty round trips to find that out is twenty more chances for
     /// the answer to change underneath.
     ///
-    /// The tenant filter on <see cref="GarmentsDbContext"/> makes "not mine" and "does not exist" the same
+    /// The tenant filter on <see cref="OstagarDbContext"/> makes "not mine" and "does not exist" the same
     /// answer here, which is the intended shape: a guessed account id from another company must not be
     /// distinguishable from a typo.
     /// </remarks>

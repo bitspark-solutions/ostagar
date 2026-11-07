@@ -26,21 +26,21 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore
-        run: dotnet restore GarmentsERP.slnx
+        run: dotnet restore Ostagar.slnx
 
       # TreatWarningsAsErrors is set repo-wide, so a warning fails here. No suppressions without a
       # written reason.
       - name: Build
-        run: dotnet build GarmentsERP.slnx --no-restore -v q --nologo
+        run: dotnet build Ostagar.slnx --no-restore -v q --nologo
 
       - name: Engineering laws (L1, L1b, L2, L3, L6, L8)
-        run: dotnet test tests/Garments.Tests.Architecture --no-build -v q --nologo
+        run: dotnet test tests/Ostagar.Tests.Architecture --no-build -v q --nologo
 
       - name: Domain unit tests
-        run: dotnet test tests/Garments.Tests.Unit --no-build -v q --nologo
+        run: dotnet test tests/Ostagar.Tests.Unit --no-build -v q --nologo
 
       - name: Integration tests (Postgres)
-        run: dotnet test tests/Garments.Tests.Integration --no-build -v q --nologo
+        run: dotnet test tests/Ostagar.Tests.Integration --no-build -v q --nologo
 
   # L7: migrations must apply to an EMPTY Postgres. A local half-migrated volume hid the legacy
   # tree's SQL-Server-typed migration (`type: "uniqueidentifier"`) for a year, because every
@@ -53,7 +53,7 @@ jobs:
         image: postgres:17-alpine
         env:
           POSTGRES_PASSWORD: ci
-          POSTGRES_DB: garments
+          POSTGRES_DB: ostagar
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -74,7 +74,7 @@ jobs:
         run: |
           dotnet ef database update \
             --project src/Api --startup-project src/Api --no-build \
-            --ConnectionStrings:Default="Host=localhost;Port=5432;Database=garments;Username=postgres;Password=ci"
+            --ConnectionStrings:Default="Host=localhost;Port=5432;Database=ostagar;Username=postgres;Password=ci"
 
   # L12-L15 and L17 are enforced here rather than in review.
   frontend:

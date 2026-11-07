@@ -1,8 +1,8 @@
 using System.Security.Claims;
-using Garments.Core;
+using Ostagar.Core;
 using Microsoft.AspNetCore.Http;
 
-namespace Garments.Platform.Security;
+namespace Ostagar.Platform.Security;
 
 /// <summary>
 /// Reads the caller out of the access token on the current request.

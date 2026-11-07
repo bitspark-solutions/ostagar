@@ -1,8 +1,8 @@
-using Garments.Ledger;
+using Ostagar.Ledger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Garments.Data;
+namespace Ostagar.Data;
 
 /// <summary>
 /// Maps the ledger onto the schema, including the constraints that make a wrong posting impossible

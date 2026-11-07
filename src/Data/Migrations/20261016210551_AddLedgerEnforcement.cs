@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Garments.Data.Migrations;
+namespace Ostagar.Data.Migrations;
 
 /// <summary>
 /// Puts the ledger's accounting rules inside the database, and puts the five new tables behind the

@@ -1,4 +1,4 @@
-namespace Garments.Platform.Failures;
+namespace Ostagar.Platform.Failures;
 
 /// <summary>
 /// Too many failed attempts for this login. Reported as a refusal rather than a delay, because the
