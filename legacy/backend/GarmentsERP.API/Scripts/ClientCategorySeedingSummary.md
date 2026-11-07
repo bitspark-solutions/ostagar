@@ -1,7 +1,7 @@
-# MM Fashion Category Seeding Summary
+# the client Category Seeding Summary
 
 ## Overview
-This document summarizes the initial category seeding for the MM Fashion cashbook system. The categories were extracted from the actual CSV files used by MM Fashion and organized into Credit (money in) and Debit (money out) categories.
+This document summarizes the initial category seeding for the the client cashbook system. The categories were extracted from the actual CSV files used by the client and organized into Credit (money in) and Debit (money out) categories.
 
 ## Seeded Categories
 
@@ -70,9 +70,9 @@ These represent expenses and money going out:
 
 ## Data Source Analysis
 The categories were extracted from three CSV files:
-- `Cash-Book MM Fashion.csv` - Main category structure
-- `Cash-Book MM Fashion main.csv` - Detailed transaction data with category usage
-- `Cash-Book MM Fashion trail balance.csv` - Trial balance with additional categories
+- `Cash-Book-Client-categories.csv` - Main category structure
+- `Cash-Book-Client-main.csv` - Detailed transaction data with category usage
+- `Cash-Book-Client-trial-balance.csv` - Trial balance with additional categories
 
 ## Seeding Implementation
 
@@ -119,7 +119,7 @@ Indexes: Type, IsActive, Name
 This seeding implementation satisfies the following requirements:
 - **1.1-1.5**: Simple category model with Credit/Debit types
 - **Requirements**: Categories are properly typed and active
-- **CSV Integration**: Categories match actual MM Fashion usage patterns
+- **CSV Integration**: Categories match actual the client usage patterns
 
 ## Future Enhancements
 - Additional categories can be added through the category management interface

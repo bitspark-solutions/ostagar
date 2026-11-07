@@ -469,7 +469,7 @@ answer to the legacy defects. One line, `type.meta` at 12px, `textSecondary`, on
 `space.md` of air:
 
 ```
-[ MM Fashion Ltd ]  [ FY 2026-27 · Period 4 (Oct) ]  [ BDT ]  [ Position as at 31 Oct 2026, 09:12 ]
+[ Demo Garments Ltd ]  [ FY 2026-27 · Period 4 (Oct) ]  [ BDT ]  [ Position as at 31 Oct 2026, 09:12 ]
 ```
 
 - **Company** — `CompanyProfile.LegalName`, or `LegalNameBangla` when the locale is `bn`. Not the

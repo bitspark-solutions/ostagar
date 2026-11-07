@@ -1,8 +1,8 @@
-# MM Fashion Cashbook Category System - Design Document
+# the client Cashbook Category System - Design Document
 
 ## Overview
 
-This design document outlines the implementation of a simple category system for MM Fashion cashbook entries. The system will provide a clean separation between models, services, controllers, and interfaces, allowing users to create and manage simple Credit/Debit categories without the complexity of traditional accounting classifications.
+This design document outlines the implementation of a simple category system for the client cashbook entries. The system will provide a clean separation between models, services, controllers, and interfaces, allowing users to create and manage simple Credit/Debit categories without the complexity of traditional accounting classifications.
 
 ## Architecture
 
@@ -62,7 +62,7 @@ public enum CategoryType
 ```
 
 **Design Decisions:**
-- Simple structure focused on MM Fashion needs
+- Simple structure focused on the client needs
 - CategoryType enum for Credit/Debit classification
 - Audit fields for tracking changes
 - Soft delete with IsActive flag
@@ -361,11 +361,11 @@ CREATE INDEX IX_Categories_Name ON Categories (Name);
 1. **Database Migration:**
    - Create Categories table
    - Add indexes and constraints
-   - Seed with common MM Fashion categories
+   - Seed with common the client categories
 
 2. **Coexistence:**
    - New Category system works alongside ChartOfAccount
    - No impact on existing functionality
    - Clear separation of concerns
 
-This design provides a clean, simple category system that meets the MM Fashion cashbook requirements while maintaining proper architectural separation and following established patterns in the codebase.
+This design provides a clean, simple category system that meets the the client cashbook requirements while maintaining proper architectural separation and following established patterns in the codebase.

@@ -266,10 +266,10 @@
     - Test rollback scenario if needed
     - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-  - [x] 10.2 Seed initial MM Fashion categories
+  - [x] 10.2 Seed initial the client categories
 
 
-    - Create seed data with common MM Fashion categories from CSV
+    - Create seed data with common the client categories from CSV
     - Add both Credit categories (Received: Urbo ltd, etc.) and Debit categories (Fabric Purchase, etc.)
     - Ensure seeded categories are properly typed and active
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_

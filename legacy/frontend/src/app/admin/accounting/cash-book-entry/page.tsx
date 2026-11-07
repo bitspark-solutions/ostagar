@@ -370,7 +370,7 @@ export default function CashBookEntryPage() {
               📚 Manual Cash Book Entry
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Enter accounting transactions manually in MM Fashion cash book format
+              Enter accounting transactions manually in the client cash book format
             </Typography>
           </Box>
           <Button

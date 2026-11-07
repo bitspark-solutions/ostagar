@@ -9,9 +9,9 @@ This folder contains all project documentation for the GarmentsERP system.
 - **`progress.md`** - Development progress tracking and milestones
 - **`RESTRUCTURING_SUMMARY.md`** - Enterprise accounting system restructuring details
 
-### **MM Fashion Cash Book Integration**
-- **`MM_Fashion_CashBook_Integration_Summary.md`** - Complete integration summary and implementation details
-- **`MM_Fashion_Database_Mapping.md`** - CSV to database model mapping specifications
+### **Client Cash Book Integration**
+- **`Legacy_CashBook_Integration_Summary.md`** - Complete integration summary and implementation details
+- **`Legacy_CashBook_Database_Mapping.md`** - CSV to database model mapping specifications
 - **`Manual_Cash_Book_System_Summary.md`** - Manual data entry system documentation
 - **`Cash_Book_Import_User_Guide.md`** - End-user guide for cash book import feature
 
@@ -34,15 +34,15 @@ This folder contains all project documentation for the GarmentsERP system.
 - Check **`progress.md`** for current implementation status
 
 ### **For System Integration:**
-- Consult **`MM_Fashion_Database_Mapping.md`** for data mapping
-- Reference **`MM_Fashion_CashBook_Integration_Summary.md`** for complete integration details
+- Consult **`Legacy_CashBook_Database_Mapping.md`** for data mapping
+- Reference **`Legacy_CashBook_Integration_Summary.md`** for complete integration details
 
 ## 📊 **Document Types**
 
 | Icon | Type | Purpose |
 |------|------|---------|
 | 📋 | Planning | Project specifications and requirements |
-| 🔄 | Integration | MM Fashion cash book system integration |
+| 🔄 | Integration | the client cash book system integration |
 | 👤 | User Guide | End-user documentation and instructions |
 | ⚙️ | Configuration | System setup and technical configuration |
 | 🛠️ | Development | Technical specifications and architecture |

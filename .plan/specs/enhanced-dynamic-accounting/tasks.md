@@ -169,7 +169,7 @@
 - [ ] 7. PDF Generation and A4 Printing System
   - [ ] 7.1 Create IPdfGenerator interface and implementation
     - Implement A4-optimized trial balance PDF generation
-    - Create MM Fashion format template with company header
+    - Create the client format template with company header
     - Add signature lines for "Prepared by", "Factory Manager", "M.D", "Chairman Sir"
     - Implement proper page breaks and formatting
     - Add print-friendly styling and margins
@@ -236,7 +236,7 @@
 
 - [ ] 11. Enhanced Cash Book Entry Frontend Interface
   - [ ] 11.1 Create EnhancedCashBookEntry main component
-    - Implement split-screen layout matching MM Fashion format
+    - Implement split-screen layout matching the client format
     - Add transaction header with date, reference, and description
     - Create real-time balance calculation and display
     - Add visual balance indicator (green/red)
@@ -246,7 +246,7 @@
   - [ ] 11.2 Create CreditTransactionPanel component
     - Implement credit transaction entry form
     - Add autocomplete for categories and contacts
-    - Create date picker with MM Fashion format support
+    - Create date picker with the client format support
     - Add amount input with currency formatting
     - Implement add/remove transaction line functionality
     - _Requirements: 3.2, 3.3, 3.8, 7.4_
@@ -269,7 +269,7 @@
 
 - [ ] 12. Trial Balance Frontend Components
   - [ ] 12.1 Create TrialBalanceReport component
-    - Implement MM Fashion format display
+    - Implement the client format display
     - Add month/year selector with validation
     - Create account listing with debit/credit columns
     - Add total calculations and balance verification
@@ -278,7 +278,7 @@
 
   - [ ] 12.2 Create PrintableTrialBalance component
     - Implement A4-optimized layout and styling
-    - Add company header with MM Fashion branding
+    - Add company header with the client branding
     - Create signature lines for required approvals
     - Add print button with proper print media queries
     - Implement page break handling for long reports
@@ -296,7 +296,7 @@
   - [ ] 13.1 Create reusable UI components
     - Implement AutoComplete component with debounced search
     - Create CurrencyInput component with formatting
-    - Add DatePicker component with MM Fashion format support
+    - Add DatePicker component with the client format support
     - Create ValidationMessage component for consistent error display
     - Implement LoadingSpinner and ProgressBar components
     - _Requirements: 7.1, 7.2, 7.3, 7.5_

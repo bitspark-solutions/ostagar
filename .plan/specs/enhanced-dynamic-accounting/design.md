@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Enhanced Dynamic Accounting System builds upon the existing MM Fashion cash book implementation to provide a comprehensive, user-friendly accounting solution. The design leverages existing Sage-compatible models while adding dynamic category management, enhanced UI components, and robust reporting capabilities. The system maintains strict double-entry bookkeeping principles while providing the flexibility needed for modern business operations.
+The Enhanced Dynamic Accounting System builds upon the existing the client cash book implementation to provide a comprehensive, user-friendly accounting solution. The design leverages existing Sage-compatible models while adding dynamic category management, enhanced UI components, and robust reporting capabilities. The system maintains strict double-entry bookkeeping principles while providing the flexibility needed for modern business operations.
 
 ## Architecture
 
@@ -351,7 +351,7 @@ public class ChartOfAccountExtended
 {
     // Existing properties from ChartOfAccount
     public bool IsDynamic { get; set; } = true; // User-created vs system
-    public string? CategoryGroup { get; set; } // MM Fashion category grouping
+    public string? CategoryGroup { get; set; } // the client category grouping
     public int SortOrder { get; set; } = 0; // Display order
     public bool AllowTransactions { get; set; } = true; // Can have transactions
 }

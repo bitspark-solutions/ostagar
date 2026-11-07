@@ -9,7 +9,7 @@
 4. Select **"Cash Book Import"** from the accounting modules
 
 ### **Step 2: Prepare Your CSV File**
-Your MM Fashion cash book CSV should have this structure:
+Your the client cash book CSV should have this structure:
 ```csv
 Date,Catagories,Particulars,Amount Tk.,Date,Catagories,Supplier,Buyer,Particulars,Amount Tk.
 01-02-2025,Loan A/C Chairman,,"261,080",01-02-25,Subcontract bill,,Brooklyn: Joggers,,"2,400"
@@ -17,7 +17,7 @@ Date,Catagories,Particulars,Amount Tk.,Date,Catagories,Supplier,Buyer,Particular
 
 ### **Step 3: Upload and Import**
 1. Click **"Select CSV File"** button
-2. Choose your MM Fashion cash book CSV file
+2. Choose your the client cash book CSV file
 3. Review the file details (name, size)
 4. Click **"Import Cash Book"**
 5. Monitor the progress bar
@@ -141,7 +141,7 @@ After a successful import, you should see:
 ### **Getting Help:**
 - Check browser console for detailed error messages
 - Review the sample format guide in the UI
-- Ensure your CSV matches the MM Fashion structure exactly
+- Ensure your CSV matches the the client structure exactly
 - Contact support with error messages and sample data
 
 ## 🚀 **Next Steps After Import**
@@ -152,4 +152,4 @@ After a successful import, you should see:
 4. **Generate Trial Balance** to validate data integrity
 5. **Create Financial Reports** for business analysis
 
-Your MM Fashion cash book data is now fully integrated into the ERP system! 🎉
+Your the client cash book data is now fully integrated into the ERP system! 🎉

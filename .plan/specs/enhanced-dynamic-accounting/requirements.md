@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This specification outlines the enhancement of the existing MM Fashion cash book accounting system to create a fully dynamic, user-friendly accounting solution. The system must allow admin users to dynamically create categories, manage suppliers/buyers, maintain proper double-entry bookkeeping, generate monthly trial balances, and provide immutable transaction records for completed transactions. The UI must be highly intuitive and support A4 printing for trial balance reports.
+This specification outlines the enhancement of the existing the client cash book accounting system to create a fully dynamic, user-friendly accounting solution. The system must allow admin users to dynamically create categories, manage suppliers/buyers, maintain proper double-entry bookkeeping, generate monthly trial balances, and provide immutable transaction records for completed transactions. The UI must be highly intuitive and support A4 printing for trial balance reports.
 
 ## Requirements
 
@@ -36,7 +36,7 @@ This specification outlines the enhancement of the existing MM Fashion cash book
 
 ### Requirement 3: Enhanced Cash Book Entry Interface
 
-**User Story:** As a user, I want an intuitive split-screen cash book entry interface that matches the MM Fashion format, so that I can efficiently enter transactions with familiar workflow.
+**User Story:** As a user, I want an intuitive split-screen cash book entry interface that matches the the client format, so that I can efficiently enter transactions with familiar workflow.
 
 #### Acceptance Criteria
 
@@ -47,7 +47,7 @@ This specification outlines the enhancement of the existing MM Fashion cash book
 5. WHEN the transaction is unbalanced THEN the system SHALL display clear visual indicators and prevent saving
 6. WHEN all required fields are completed and balanced THEN the system SHALL enable the save button
 7. WHEN a transaction is saved THEN the system SHALL generate proper double-entry journal entries automatically
-8. WHEN entering dates THEN the system SHALL support multiple date formats (dd-MM-yyyy, dd-MM-yy) as per MM Fashion format
+8. WHEN entering dates THEN the system SHALL support multiple date formats (dd-MM-yyyy, dd-MM-yy) as per the client format
 
 ### Requirement 4: Proper Accounting Ledger Implementation
 
@@ -87,7 +87,7 @@ This specification outlines the enhancement of the existing MM Fashion cash book
 2. WHEN trial balance is generated THEN the system SHALL display all accounts with debit and credit balances
 3. WHEN displaying trial balance THEN the system SHALL show opening balances, period transactions, and closing balances
 4. WHEN trial balance is calculated THEN the system SHALL ensure total debits equal total credits
-5. WHEN trial balance format is displayed THEN the system SHALL match MM Fashion format with company header and date
+5. WHEN trial balance format is displayed THEN the system SHALL match the client format with company header and date
 6. WHEN printing trial balance THEN the system SHALL optimize layout for A4 paper with proper margins and formatting
 7. WHEN trial balance is printed THEN the system SHALL include signature lines for "Prepared by", "Factory Manager", "M.D", and "Chairman Sir"
 8. WHEN trial balance shows imbalance THEN the system SHALL highlight the discrepancy and provide drill-down capability

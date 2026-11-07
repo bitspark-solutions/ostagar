@@ -58,7 +58,7 @@ Everything in this section was executed and verified on 2026-10-15/16, not infer
 3. Self-serve trial signup → working workspace in under 3 minutes, unassisted.
 4. Screenshots, a product tour and a short demo video captured from the real app, never from mock data.
 5. Pricing page, security/data page, docs hub, onboarding checklist.
-6. A named reference: the MM Fashion cash-book import shown as a live before/after.
+6. A named reference: the the client cash-book import shown as a live before/after.
 7. Zero broken links: a CI route-graph check proves every nav href resolves.
 
 ### 1.3 Explicitly in scope for v1 ("everything")
@@ -328,7 +328,7 @@ The buyer is a Bangladeshi factory owner, so the operating language is Bangla wh
 Every phase ends at a **gate**: a command that prints PASS/FAIL with evidence, plus a live screen or endpoint I demonstrate. Nothing starts until the previous gate passes. Gates are reviewed by you.
 
 ### P0 — Freeze and the truth machine
-Tag `legacy-final`; extract read-only schema + MM Fashion CSV mapping into `legacy-reference/`. New solution skeleton at §2.5 with an empty bootable app. Build CI: both builds, both lint, type-check, migrations-on-empty-DB, L1/L2/L3/L6/L14/L15 checkers, and a `verify-all.sh` that is the single gate command. Fix the frontend's two dead imports only if we keep any page; otherwise the new `web/` starts clean. Docker Desktop must be running — it currently is not.
+Tag `legacy-final`; extract read-only schema + the client CSV mapping into `legacy-reference/`. New solution skeleton at §2.5 with an empty bootable app. Build CI: both builds, both lint, type-check, migrations-on-empty-DB, L1/L2/L3/L6/L14/L15 checkers, and a `verify-all.sh` that is the single gate command. Fix the frontend's two dead imports only if we keep any page; otherwise the new `web/` starts clean. Docker Desktop must be running — it currently is not.
 **Gate:** green pipeline on an app that does nothing yet, on every push. *This is the phase that could not have been skipped.*
 
 **✅ P0 CLOSED 2026-10-16 — `verify-all.sh` PASS, 11 checks.** Frontend: 105 tests, lint clean, production build succeeds, route graph closed (3 pages, 8/8 components reachable). Backend: 13 law tests (6 hold, 6 fire on planted breaches, 1 stays silent on compliant prose). Coverage line correctly reads `controllers: 0` — the harness is real, the product is not built yet. Every law was proven to fire by planting violations and then removing them.
@@ -380,7 +380,7 @@ Still open in this phase, in the order that unblocks the next one:
 **Storno is deferred, and it is a schema decision rather than a feature flag.** `UsesStorno` is carried on the journal and nothing honours it. A Storno correction repeats the original side with a *negated* amount, which `CK_gl_line_debit_xor_credit` refuses outright — it requires `> 0`. Turning that into `<> 0` weakens invariant I2 everywhere, including for every path that is not Storno, and a debit that can be negative is a debit whose meaning depends on reading another column first. The non-Storno mirror implemented here is what Bangladesh's factories and their accountants actually expect. Recorded so it is not re-litigated, and to be revisited only if a pilot asks in writing.
 
 ### P3 — Posting sources: manual + cash book + bank
-Manual journal (the only working path today — `IJournalEntryService`, registered), cash book, customer/vendor payments and allocations, bank accounts, transfers, reconciliation. MM Fashion CSV import rebuilt on the posting engine with explicit account-mapping configuration, replacing the old `GetOrCreateCategoryAsync` behaviour of auto-creating CoA accounts from free text with `new Random().Next(100,999)` codes.
+Manual journal (the only working path today — `IJournalEntryService`, registered), cash book, customer/vendor payments and allocations, bank accounts, transfers, reconciliation. the client CSV import rebuilt on the posting engine with explicit account-mapping configuration, replacing the old `GetOrCreateCategoryAsync` behaviour of auto-creating CoA accounts from free text with `new Random().Next(100,999)` codes.
 **Gate:** real client CSV → balanced GL → trial balance that ties; each write endpoint proven by "did it persist" assertions (L3).
 
 ### P4 — Reporting, design system, and the trial balance redo
@@ -419,10 +419,10 @@ Built for how this buyer actually decides: a 6-minute walkthrough **in Bangla, o
 ## 6. Data strategy
 
 No legacy runtime data exists, so this is an import, not a migration.
-1. `legacy-reference/` holds the old schema and the MM Fashion CSV mapping (read-only).
-2. MM Fashion Ltd CSVs become the **demo tenant** and the P3 tie-out corpus. They were scrubbed from git history on 2026-10-15 and stay out of the repo — referenced by path, never committed.
+1. `legacy-reference/` holds the old schema and the the client CSV mapping (read-only).
+2. The pilot client's CSVs become the **demo tenant** seed and the P3 tie-out corpus. They were scrubbed from git history on 2026-10-15 and stay out of the repo — referenced by path, never committed.
 3. Import is idempotent per I5, and re-runnable after a mapping fix without duplicate postings.
-4. Chart of accounts is built once as a **template** with a garments-specific seed, then per-tenant customisable. "MM Fashion categories" become tenant data under a configurable category set — the single largest productisation step, because today they are hard-coded into the domain model.
+4. Chart of accounts is built once as a **template** with a garments-specific seed, then per-tenant customisable. "the client categories" become tenant data under a configurable category set — the single largest productisation step, because today they are hard-coded into the domain model.
 
 ---
 

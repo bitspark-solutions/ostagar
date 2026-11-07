@@ -36,7 +36,7 @@ namespace GarmentsERP.API.Models.Accounting
         public bool IsDynamic { get; set; } = true; // User-created vs system
 
         [MaxLength(100)]
-        public string? CategoryGroup { get; set; } // MM Fashion category grouping
+        public string? CategoryGroup { get; set; } // the client category grouping
 
         public int SortOrder { get; set; } = 0; // Display order
 

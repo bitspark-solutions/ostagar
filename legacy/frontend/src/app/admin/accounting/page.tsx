@@ -27,7 +27,7 @@ export default function AccountingPage() {
   const accountingModules = [
     {
       title: 'Cash Book Entry',
-      description: 'Manual data entry in MM Fashion cash book format',
+      description: 'Manual data entry in the client cash book format',
       icon: <Upload />,
       path: '/admin/accounting/cash-book-entry',
       color: 'primary.main',
@@ -35,7 +35,7 @@ export default function AccountingPage() {
     },
     {
       title: 'Cash Book Import',
-      description: 'Import MM Fashion cash book data from CSV files',
+      description: 'Import the client cash book data from CSV files',
       icon: <Upload />,
       path: '/admin/accounting/cash-book-import',
       color: 'secondary.main',
@@ -119,10 +119,10 @@ export default function AccountingPage() {
       {/* Quick Stats */}
       <Paper sx={{ p: 3, mb: 4, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: 'white' }}>
         <Typography variant="h6" gutterBottom>
-          💼 MM Fashion Cash Book Integration
+          💼 Client Cash Book Integration
         </Typography>
         <Typography variant="body1">
-          Create and manage accounting transactions manually in the familiar MM Fashion cash book format.
+          Create and manage accounting transactions manually in the familiar the client cash book format.
           Enter categories, transactions, suppliers, and buyers with automatic double-entry bookkeeping.
         </Typography>
       </Paper>

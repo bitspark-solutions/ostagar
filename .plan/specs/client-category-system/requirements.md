@@ -1,8 +1,8 @@
-# MM Fashion Cashbook Category System - Requirements Document
+# the client Cashbook Category System - Requirements Document
 
 ## Introduction
 
-The current category system uses the complex ChartOfAccount model designed for traditional accounting, but the MM Fashion cashbook needs a simpler category system. Based on the CSV file structure, we need separate category management that supports both credit (money in) and debit (money out) categories that users can create, edit, and manage through CRUD operations.
+The current category system uses the complex ChartOfAccount model designed for traditional accounting, but the the client cashbook needs a simpler category system. Based on the CSV file structure, we need separate category management that supports both credit (money in) and debit (money out) categories that users can create, edit, and manage through CRUD operations.
 
 ## Requirements
 
@@ -124,6 +124,6 @@ The current category system uses the complex ChartOfAccount model designed for t
 - Users can create and manage simple categories without accounting knowledge
 - Category CRUD operations work smoothly through both API and UI
 - Categories integrate seamlessly with cashbook entry system
-- System supports the MM Fashion CSV category structure
+- System supports the the client CSV category structure
 - New system coexists with existing ChartOfAccount functionality
 - Category management is intuitive and fast for daily use

@@ -5,7 +5,7 @@ Public repo history rewritten (user-approved, D1) and force-pushed. New HEAD: `f
 
 ## Verified actions
 1. **History rewrite** (git-filter-repo, 3 passes, mirror backup kept at `~/.hermes/cache/scratch/garments-mirror-backup.git`):
-   - Removed from ALL 106 commits: `pgadmin/pgpass`, `sample_csv/` (real MM Fashion Ltd financials), `error_docs/`, `PROJECT_PLAN_AUTHENTICATION_FIX.md`, `Enterprise Accounting Software Development Prompt.txt` (root + `documents/` + `docs/` copies).
+   - Removed from ALL 106 commits: `pgadmin/pgpass`, `sample_csv/` (real Demo Garments Ltd financials), `error_docs/`, `PROJECT_PLAN_AUTHENTICATION_FIX.md`, `Enterprise Accounting Software Development Prompt.txt` (root + `documents/` + `docs/` copies).
    - `--replace-text` neutralized baked secrets in every historical blob: `postgres123`, JWT secret `YourSuperSecret…`, AES key/IV/salt, `GarmentsDB@2026!Secure…`.
    - Full byte-level scan of every object in the rewritten repo: **0 leaked bytes, 0 sensitive path refs**.
 2. **Forward hygiene commit**: docker-compose now passes `Encryption__Key/IV/Salt` from env; `.env.example` gained `ENCRYPTION_*` entries; `.gitignore` never-tracks `pgpass`/`sample_csv/`.

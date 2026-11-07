@@ -1,11 +1,11 @@
-# Cashbook Functionality Plan - MM Fashion Format
+# Cashbook Functionality Plan - Client CSV Format
 
 ## Overview
-Based on the sample CSV files, the cashbook system needs to support the MM Fashion format with categories, suppliers, buyers, and trial balance functionality.
+Based on the sample CSV files, the cashbook system needs to support the the client format with categories, suppliers, buyers, and trial balance functionality.
 
 ## Sample CSV Analysis
 
-### 1. Categories Mapping (Cash-Book MM Fashion.csv)
+### 1. Categories Mapping (Cash-Book-Client-categories.csv)
 ```csv
 Credit Categories,Debit Categories,Supplier,Buyer
 Sales,Purchase,Supplier A,Buyer A
@@ -20,7 +20,7 @@ Interest,Salary,Supplier C,Buyer C
 - Supplier: Trading partners for purchases
 - Buyer: Trading partners for sales
 
-### 2. Main Transaction Format (Cash-Book MM Fashion main.csv)
+### 2. Main Transaction Format (Cash-Book-Client-main.csv)
 ```csv
 Date,Credit Categories,Particulars,Amount,Date,Debit Categories,Particulars,Amount
 2024-01-01,Sales,Sale to Buyer A,5000,2024-01-01,Purchase,Purchase from Supplier A,3000
@@ -33,7 +33,7 @@ Date,Credit Categories,Particulars,Amount,Date,Debit Categories,Particulars,Amou
 - **Right Side (Debit)**: Date, Debit Categories, Particulars, Amount
 - **Double Entry**: Each row represents balanced credit and debit entries
 
-### 3. Trial Balance (Cash-Book MM Fashion trail balance.csv)
+### 3. Trial Balance (Cash-Book-Client-trial-balance.csv)
 ```csv
 Account,Dr.,Cr.,Balance
 Purchase,3000,,3000
@@ -107,9 +107,9 @@ CREATE TABLE transaction_lines (
 );
 ```
 
-### 5. MM Fashion Categories Mapping
+### 5. the client Categories Mapping
 ```sql
-CREATE TABLE mm_fashion_categories (
+CREATE TABLE client_categories (
     id SERIAL PRIMARY KEY,
     credit_category VARCHAR(100),
     debit_category VARCHAR(100),
@@ -151,8 +151,8 @@ CREATE TABLE mm_fashion_categories (
 
 ### 4. CSV Import/Export
 ```csharp
-// POST /api/accounting/cash-book/import/mm-fashion
-// GET /api/accounting/cash-book/export/mm-fashion
+// POST /api/accounting/cash-book/import/client-csv
+// GET /api/accounting/cash-book/export/client-csv
 // POST /api/accounting/cash-book/import/categories
 // GET /api/accounting/cash-book/export/trial-balance
 ```
@@ -196,7 +196,7 @@ CREATE TABLE mm_fashion_categories (
 ### 4. CSV Import/Export
 ```
 /admin/accounting/csv-operations
-├── MMFashionImport.tsx
+├── CashBookCsvImport.tsx
 ├── CategoriesImport.tsx
 ├── TrialBalanceExport.tsx
 └── TransactionExport.tsx
@@ -227,12 +227,12 @@ CREATE TABLE mm_fashion_categories (
 - [ ] Add transaction lines management
 - [ ] Implement balance validation
 
-### Phase 3: MM Fashion Format Support (Week 5-6)
-- [ ] Create MM Fashion categories mapping
+### Phase 3: Client CSV Format Support (Week 5-6)
+- [ ] Create the client categories mapping
 - [ ] Implement CSV import for categories
 - [ ] Implement CSV import for transactions
-- [ ] Build MM Fashion import interface
-- [ ] Add validation for MM Fashion format
+- [ ] Build the client import interface
+- [ ] Add validation for the client format
 
 ### Phase 4: Reporting (Week 7-8)
 - [ ] Implement trial balance generation
@@ -255,7 +255,7 @@ CREATE TABLE mm_fashion_categories (
 - **Revenue**: Normal credit balance
 - **Expenses**: Normal debit balance
 
-### 3. MM Fashion Format Rules
+### 3. Client CSV Format Rules
 - Credit Categories map to Revenue accounts
 - Debit Categories map to Expense accounts
 - Suppliers linked to Purchase transactions
@@ -326,4 +326,4 @@ CREATE TABLE mm_fashion_categories (
 - Backup and recovery procedures
 - Compliance with accounting standards
 
-This comprehensive plan provides a roadmap for implementing the cashbook functionality that supports the MM Fashion CSV format while maintaining proper accounting principles and user experience.
+This comprehensive plan provides a roadmap for implementing the cashbook functionality that supports the the client CSV format while maintaining proper accounting principles and user experience.

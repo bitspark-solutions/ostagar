@@ -18,7 +18,7 @@ namespace GarmentsERP.API.Services
         }
 
         /// <summary>
-        /// Import MM Fashion Cash Book data into the accounting system
+        /// Import Client Cash Book data into the accounting system
         /// Maps CSV categories to Chart of Accounts and creates journal entries
         /// </summary>
         public async Task<ImportResult> ImportCashBookDataAsync(CashBookImportRequest request)
@@ -59,7 +59,7 @@ namespace GarmentsERP.API.Services
         {
             var accounts = new List<ChartOfAccount>();
 
-            // Define account structure based on MM Fashion categories
+            // Define account structure based on the client categories
             var accountMappings = new Dictionary<string, (AccountType Type, string Code, string ParentCode)>
             {
                 // CREDIT/INWARD CATEGORIES (Revenue/Liability)
@@ -148,7 +148,7 @@ namespace GarmentsERP.API.Services
                             AccountName = category,
                             AccountType = mapping.Type,
                             ParentAccountId = parentAccount?.Id,
-                            Description = $"MM Fashion - {category}"
+                            Description = $"the client - {category}"
                         };
 
                         _context.ChartOfAccounts.Add(account);
@@ -178,7 +178,7 @@ namespace GarmentsERP.API.Services
                         Name = supplier,
                         CompanyName = supplier,
                         ContactType = ContactType.Supplier,
-                        Email = $"{supplier.Replace(" ", "").Replace("&", "").ToLower()}@mmfashion.com",
+                        Email = $"{supplier.Replace(" ", "").Replace("&", "").ToLower()}@example.com",
                         PaymentTerms = 30,
                         IsActive = true
                     };
@@ -328,7 +328,7 @@ namespace GarmentsERP.API.Services
                     AccountCode = "1100",
                     AccountName = "Cash on Hand",
                     AccountType = AccountType.Asset,
-                    Description = "MM Fashion Cash Account"
+                    Description = "the client Cash Account"
                 };
 
                 _context.ChartOfAccounts.Add(cashAccount);

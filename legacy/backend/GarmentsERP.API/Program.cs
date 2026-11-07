@@ -236,9 +236,9 @@ using (var scope = app.Services.CreateScope())
         // await permissionSeeder.SeedPermissionsAndRoleAssignmentsAsync();
         // logger.LogInformation("✅ Permissions and role assignments seeded successfully");
         
-        // Seed initial MM Fashion categories
+        // Seed initial the client categories
         // await CategorySeeder.SeedCategoriesAsync(context);
-        // logger.LogInformation("✅ MM Fashion categories seeded successfully");
+        // logger.LogInformation("✅ the client categories seeded successfully");
     }
     catch (Exception ex)
     {

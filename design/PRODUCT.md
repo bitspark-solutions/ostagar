@@ -145,7 +145,7 @@ Confirmed, binding, and shaping every screen:
   `#0B1437` navy against the shared shell's `#ffffff` sidebar; a `DateRangeSelector` imported and
   never mounted, leaving the report permanently month-to-date; mock trend values and one hardcoded
   SVG sparkline path per row.
-- Real client data available for a demo tenant: MM Fashion Ltd cash-book CSVs, referenced by path
+- Real client data available for a demo tenant: the pilot client's cash-book CSVs, referenced by path
   and never committed (§6). The demo tenant must be a factory, not a generic trading company.
 - Absences that future work must not fabricate: no customer logos, no testimonials, no pricing
   figures, no benchmarks, no live pilot screenshots, no real chart series. `docs/progress.md` is

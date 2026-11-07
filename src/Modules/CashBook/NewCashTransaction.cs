@@ -7,7 +7,7 @@ namespace Garments.Modules.CashBook;
 /// </summary>
 /// <remarks>
 /// One transaction is exactly two accounts: the cash (or bank) account the money moved through, and the
-/// counter account that says what the movement was for. The MM Fashion book this replaces splits a day
+/// counter account that says what the movement was for. The the client book this replaces splits a day
 /// into a "categories" grid — the counter account is what a category always was, and naming it an
 /// account here is what makes every row land in the ledger instead of in a report that later disagrees
 /// with it.

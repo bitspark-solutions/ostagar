@@ -22,7 +22,7 @@ namespace GarmentsERP.API.Controllers
         }
 
         /// <summary>
-        /// Import MM Fashion Cash Book CSV data
+        /// Import Client Cash Book CSV data
         /// </summary>
         [HttpPost("import-csv")]
         public async Task<ActionResult<ImportResult>> ImportCashBookCsv(IFormFile csvFile)
@@ -52,7 +52,7 @@ namespace GarmentsERP.API.Controllers
         }
 
         /// <summary>
-        /// Import MM Fashion Cash Book from manual data entry
+        /// Import Client Cash Book from manual data entry
         /// </summary>
         [HttpPost("import-manual")]
         public async Task<ActionResult<ImportResult>> ImportCashBookManual([FromBody] CashBookImportRequest request)
@@ -162,7 +162,7 @@ namespace GarmentsERP.API.Controllers
         {
             try
             {
-                // MM Fashion CSV structure:
+                // the client CSV structure:
                 // 0: Date, 1: Credit Categories, 2: Credit Particulars, 3: Credit Amount
                 // 4: Date, 5: Debit Categories, 6: Supplier, 7: Buyer, 8: Debit Particulars, 9: Debit Amount
 
@@ -229,14 +229,14 @@ namespace GarmentsERP.API.Controllers
         }
 
         /// <summary>
-        /// Get sample CSV format for MM Fashion cash book import
+        /// Get sample CSV format for the client cash book import
         /// </summary>
         [HttpGet("sample-format")]
         public ActionResult GetSampleCsvFormat()
         {
             var sample = new
             {
-                format = "MM Fashion Cash Book CSV Format",
+                format = "Client Cash Book CSV Format",
                 structure = new
                 {
                     credit_section = new

@@ -1,8 +1,8 @@
-# 🗃️ MM Fashion Cash Book to Database Models Mapping
+# 🗃️ Client Cash Book to Database Models Mapping
 
 ## 📋 **CSV Column Structure Analysis**
 
-### **Original MM Fashion CSV Format:**
+### **Original the client CSV Format:**
 ```csv
 Date,Catagories,Particulars,Amount Tk.,Date,Catagories,Supplier,Buyer,Particulars,Amount Tk.
 ```
@@ -26,7 +26,7 @@ Date,Catagories,Particulars,Amount Tk.,Date,Catagories,Supplier,Buyer,Particular
 ### **1. Categories → ChartOfAccount**
 ```csharp
 // Table: ChartOfAccounts
-MM Fashion Category          Database Field               Account Type    Account Code
+the client Category          Database Field               Account Type    Account Code
 ─────────────────────────────────────────────────────────────────────────────────────
 "Loan A/C Chairman"      →   AccountName                 Liability       2001
 "Machine Purchase"       →   AccountName                 Asset           1001  
@@ -41,7 +41,7 @@ MM Fashion Category          Database Field               Account Type    Accoun
 ### **2. Suppliers/Buyers → Contact**
 ```csharp
 // Table: Contacts  
-MM Fashion Field            Database Field               Contact Type
+the client Field            Database Field               Contact Type
 ────────────────────────────────────────────────────────────────────
 Supplier                →   Name, CompanyName           Supplier
 Buyer                   →   Name, CompanyName           Customer  
@@ -52,7 +52,7 @@ Buyer                   →   Name, CompanyName           Customer
 ### **3. Transactions → JournalEntry + JournalEntryLine**
 ```csharp
 // Table: JournalEntries
-MM Fashion Field            Database Field               Sample Value
+the client Field            Database Field               Sample Value
 ────────────────────────────────────────────────────────────────────
 Date                    →   TransactionDate             2025-02-01
 Auto Generated          →   JournalNumber               JE-2025-0001
@@ -62,7 +62,7 @@ Auto Calculated         →   TotalDebit                  2400.00
 Auto Calculated         →   TotalCredit                 2400.00
 
 // Table: JournalEntryLines (Double Entry)
-MM Fashion Data             Database Mapping             Debit/Credit
+the client Data             Database Mapping             Debit/Credit
 ────────────────────────────────────────────────────────────────────
 Credit Side Transaction →   
   Amount Tk.            →   Credit                      261080.00
@@ -86,7 +86,7 @@ Cash Account (Balance)  →
 #### **1. Header Information:**
 ```typescript
 interface CashBookEntry {
-  transactionDate: Date;           // MM Fashion "Date"
+  transactionDate: Date;           // the client "Date"
   referenceNumber: string;         // Manual entry
   description: string;             // Optional overall description
   journalType: JournalType;        // Default: General
@@ -96,11 +96,11 @@ interface CashBookEntry {
 #### **2. Credit Transaction (Money In):**
 ```typescript
 interface CreditTransaction {
-  date: Date;                      // MM Fashion left "Date"
+  date: Date;                      // the client left "Date"
   categoryId: string;              // ChartOfAccount.Id via category lookup
   categoryName: string;            // For display/search
-  particulars: string;             // MM Fashion "Particulars" 
-  amount: number;                  // MM Fashion "Amount Tk."
+  particulars: string;             // the client "Particulars" 
+  amount: number;                  // the client "Amount Tk."
   contactId?: string;              // Optional supplier/customer
 }
 ```
@@ -108,13 +108,13 @@ interface CreditTransaction {
 #### **3. Debit Transaction (Money Out):**
 ```typescript
 interface DebitTransaction {
-  date: Date;                      // MM Fashion right "Date"  
+  date: Date;                      // the client right "Date"  
   categoryId: string;              // ChartOfAccount.Id via category lookup
   categoryName: string;            // For display/search
-  supplierName?: string;           // MM Fashion "Supplier"
-  buyerName?: string;              // MM Fashion "Buyer"
-  particulars: string;             // MM Fashion "Particulars"
-  amount: number;                  // MM Fashion "Amount Tk."
+  supplierName?: string;           // the client "Supplier"
+  buyerName?: string;              // the client "Buyer"
+  particulars: string;             // the client "Particulars"
+  amount: number;                  // the client "Amount Tk."
   contactId?: string;              // Contact.Id after creation
 }
 ```
@@ -288,7 +288,7 @@ public bool ValidateCashBookEntry(CashBookEntryDto entry) {
 
 This mapping allows you to:
 
-1. **Manual Data Entry**: Create transactions mimicking MM Fashion cash book structure
+1. **Manual Data Entry**: Create transactions mimicking the client cash book structure
 2. **Automatic Account Creation**: System creates ChartOfAccount entries from categories  
 3. **Contact Management**: Auto-creates suppliers/customers from names
 4. **Double-Entry Bookkeeping**: Maintains accounting principles automatically
