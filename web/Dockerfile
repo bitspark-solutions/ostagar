@@ -1,12 +1,20 @@
 # Build context is web/ itself. The app is published as a Next standalone server, so the runtime
 # image carries only the traced dependencies rather than the whole node_modules tree.
-FROM node:24-alpine3.22 AS deps
-RUN apk add --no-cache libc6-compat
+#
+# Base images are security-pinned and must be re-scanned on bump (docker scout cves):
+# node:26-alpine3.23 is the newest LTS on the newest Alpine whose apk fixes (zlib 1.4-r0, Nov 2026)
+# are live. The `apk upgrade` layer is deliberate: upstream node images are built against the
+# Alpine repo state of their build day and ship stale packages until the next node rebuild.
+# Known residue (unfixable until Node ships it): undici/brace-expansion/ip-address CVEs are inside
+# the node runtime itself; re-check on every node release.
+FROM node:26-alpine3.23 AS deps
+RUN apk upgrade --no-cache && apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci && npm cache clean --force
 
-FROM node:24-alpine3.22 AS builder
+FROM node:26-alpine3.23 AS builder
+RUN apk upgrade --no-cache
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -23,7 +31,16 @@ ENV NEXT_PUBLIC_DEFAULT_LOCALE=$NEXT_PUBLIC_DEFAULT_LOCALE
 
 RUN npm run build
 
-FROM node:24-alpine3.22 AS runner
+FROM node:26-alpine3.23 AS runner
+RUN apk upgrade --no-cache \
+    # The standalone server executes with the node binary alone; the image's bundled npm and
+    # corepack are never invoked at runtime, and npm's vendored dependencies (undici,
+    # brace-expansion, glob, minimatch, ip-address, postcss-selector-parser) were the entire
+    # language-package CVE count of this image. Removing them zeroes the scan without touching
+    # anything the server executes. (Build stages keep npm - it is what runs `npm ci`.)
+    && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+    && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/yarn \
+             /usr/local/bin/yarnpkg /usr/local/bin/pnpm /usr/local/bin/pnpx
 WORKDIR /app
 
 ENV NODE_ENV=production

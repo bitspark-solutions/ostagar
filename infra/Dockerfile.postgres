@@ -1,0 +1,22 @@
+# Hardened wrapper around the official postgres image.
+#
+# Two CVE sources in the stock postgres:17-alpine images, both addressed here:
+# 1. Alpine packages lagging the security repos on the image's build day -> `apk upgrade`.
+# 2. The vendored gosu binary: upstream ships a prebuilt gosu whose Go toolchain
+#    (go1.24.6) predates the Go 1.24.13/1.25.13/1.26.9 security releases (Nov 2026),
+#    scoring ~60 stdlib CVEs, 4 critical, on every scan. Alpine's own gosu package is
+#    no better (go1.25.10). So gosu is built from source with the patched toolchain and
+#    overwrites the stock binary IN PLACE — overwrite, not delete, so the image SBOM
+#    stays truthful (scout does not process whiteouts).
+#
+# Re-scan on bump: docker scout cves garments-postgres:dev
+# Builder tracks the CURRENT Go release: stdlib CVEs are fixed by toolchain patches
+# (1.26.9 cleared the Nov 2026 batch; 1.27.x is the current patched stream), so the
+# builder pin must move with every Go security release.
+FROM golang:1.27.3-alpine AS gosu-build
+RUN go install github.com/tianon/gosu@v0.0.0-20261025094355-29b939aa5bd4
+
+FROM postgres:17-alpine3.23
+COPY --from=gosu-build /go/bin/gosu /usr/local/bin/gosu
+RUN chmod 0755 /usr/local/bin/gosu \
+    && apk upgrade --no-cache

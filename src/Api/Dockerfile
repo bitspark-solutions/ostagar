@@ -25,13 +25,16 @@ RUN dotnet restore src/Api/Garments.Api.csproj
 COPY src/ src/
 RUN dotnet publish src/Api/Garments.Api.csproj -c Release -o /app/publish /p:UseAppHost=false --no-restore
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
-WORKDIR /app
-
-# The aspnet base image already provides the non-root 'app' user. curl is for the healthcheck;
-# libgssapi is for Npgsql's GSSAPI probe, which logs a load error without it on every connection.
-RUN apt-get update && apt-get install -y --no-install-recommends curl libgssapi-krb5-2 \
-    && rm -rf /var/lib/apt/lists/*
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine-extra AS final
+# musl runtime instead of glibc: the noble glibc CVEs (CVE-2026-89092, CVE-2026-18374) are
+# eliminated by construction, and the apk upgrade pulls every fix the 3.24 stream carries (zlib
+# 1.4-r0). One CVE remained at scan time: musl CVE-2026-107891, fixed in 1.2.6-r6 - the patched
+# package ships in the edge stream but is not yet backported to 3.24, so it is pinned from edge
+# here. musl's ABI is stable within 1.2.6.x and the runtime is proven to load (dotnet
+# --list-runtimes). REMOVE the edge pin once 3.24 ships musl >= 1.2.6-r6, then plain apk upgrade
+# covers it. Re-scan on bump: docker scout cves garments-api:dev
+RUN apk upgrade --no-cache \
+    && apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main musl=1.2.6-r6
 
 COPY --from=build --chown=app:app /app/publish .
 
@@ -42,6 +45,6 @@ ENV ASPNETCORE_URLS=http://+:8080
 # The compose file owns the wiring for database and signing keys; this image refuses to start
 # without them, which is the application's own guard rather than a Docker concern.
 HEALTHCHECK --interval=15s --timeout=3s --start-period=10s --retries=5 \
-    CMD curl -fsS http://localhost:8080/health/live || exit 1
+    CMD ["wget", "-q", "-O", "-", "http://127.0.0.1:8080/health/live"]
 
 ENTRYPOINT ["dotnet", "Garments.Api.dll"]

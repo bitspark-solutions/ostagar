@@ -23,13 +23,12 @@ RUN dotnet restore src/Cli/Garments.Cli.csproj
 COPY src/ src/
 RUN dotnet publish src/Cli/Garments.Cli.csproj -c Release -o /app/publish /p:UseAppHost=false --no-restore
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
-WORKDIR /app
-
-# The aspnet base image already provides the non-root 'app' user. libgssapi is for Npgsql's
-# GSSAPI probe, which logs a load error without it on every connection.
-RUN apt-get update && apt-get install -y --no-install-recommends libgssapi-krb5-2 \
-    && rm -rf /var/lib/apt/lists/*
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine-extra AS final
+# Same musl/Alpine rationale as the API image, including the edge-pinned musl security fix
+# (CVE-2026-107891, 1.2.6-r6) - remove the pin once the 3.24 stream carries it. ICU included for
+# Bangla-safe string handling.
+RUN apk upgrade --no-cache \
+    && apk add --no-cache --repository https://dl-cdn.alpinelinux.org/alpine/edge/main musl=1.2.6-r6
 
 COPY --from=build --chown=app:app /app/publish .
 

@@ -22,6 +22,25 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
+  "overrides": {
+    "test-exclude": {
+      "glob": "^14.0.4",
+      "minimatch": "^11.0.5"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.5"
+    },
+    "jest-config": {
+      "glob": "^14.0.4",
+      "deepmerge": "4.1.2"
+    },
+    "@jest/reporters": {
+      "glob": "^14.0.4"
+    },
+    "jest-runtime": {
+      "glob": "^14.0.4"
+    }
+  },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.7",
     "@testing-library/jest-dom": "6.9.1",

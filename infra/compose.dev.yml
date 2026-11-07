@@ -15,7 +15,12 @@ name: garments-dev
 
 services:
   postgres:
-    image: postgres:17-alpine
+    build:
+      # Hardened wrapper (infra/Dockerfile.postgres): apk security fixes + Alpine's gosu replacing
+      # the stock image's vendored one, whose Go toolchain scores ~60 stdlib CVEs.
+      context: ..
+      dockerfile: infra/Dockerfile.postgres
+    image: garments-postgres:dev
     container_name: garments-pg
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
@@ -34,7 +39,11 @@ services:
       retries: 10
 
   redis:
-    image: redis:7-alpine
+    build:
+      # Hardened wrapper (infra/Dockerfile.redis): apk security fixes for the 3.21 stream.
+      context: ..
+      dockerfile: infra/Dockerfile.redis
+    image: garments-redis:dev
     container_name: garments-redis
     command: ['redis-server', '--save', '', '--appendonly', 'no']
     ports: ['6380:6379']

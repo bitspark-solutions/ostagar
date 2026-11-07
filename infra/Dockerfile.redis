@@ -1,0 +1,37 @@
+# Redis 7.4 rebuilt on a clean Alpine 3.23 base.
+#
+# Why a source build: every published redis:7.x-alpine tag tracks Alpine 3.21, whose
+# busybox (CVE-2025-60876) and util-linux (CVE-2026-27456) have no fix in the 3.21
+# stream, and the Debian variants score worse. Building the SAME redis release
+# (7.4.12, jemalloc — identical malloc to the official image) on Alpine 3.23 clears
+# both without changing the redis version the stack expects.
+#
+# The official entrypoint is reused verbatim (it uses setpriv, from patched util-linux,
+# to drop privileges — no gosu involved). Re-scan on bump: docker scout cves garments-redis:dev
+FROM redis:7.4-alpine AS entrypoint-source
+
+FROM alpine:3.23 AS build
+RUN apk upgrade --no-cache \
+    && apk add --no-cache build-base linux-headers curl ca-certificates
+ARG REDIS_VERSION=7.4.12
+RUN curl -fsSL "https://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz" \
+        | tar xz -C /tmp \
+    && make -C "/tmp/redis-${REDIS_VERSION}" -j "$(nproc)" \
+    && make -C "/tmp/redis-${REDIS_VERSION}" install PREFIX=/usr/local
+
+FROM alpine:3.23
+RUN apk upgrade --no-cache \
+    && apk add --no-cache util-linux \
+    && addgroup -S redis && adduser -S redis -G redis \
+    && mkdir /data && chown redis:redis /data \
+    # The official entrypoint hardcodes /usr/bin/setpriv; Alpine 3.23's util-linux installs
+    # it at /bin/setpriv. Bridge the path rather than patch the script.
+    && ln -s /bin/setpriv /usr/bin/setpriv
+WORKDIR /data
+COPY --from=build /usr/local/bin/redis-* /usr/local/bin/
+COPY --from=entrypoint-source /usr/local/bin/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
+VOLUME /data
+EXPOSE 6379
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["redis-server"]
