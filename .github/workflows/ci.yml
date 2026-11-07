@@ -54,15 +54,12 @@ jobs:
       - name: Domain unit tests
         run: dotnet test tests/Ostagar.Tests.Unit --no-build -v q --nologo
 
-      - name: Install EF tool
-        run: dotnet tool install --global dotnet-ef
-
-      # The context and the migrations live in Ostagar.Data; the design-time factory reads
-      # ConnectionStrings__Default from the environment - that is its only source, by design.
+      # Migrations run through the CLI - the same `db migrate` the deploy container executes - so CI
+      # exercises the route production takes instead of a host-only dotnet-ef path.
       - name: Apply migrations to the CI database
         env:
           ConnectionStrings__Default: 'Host=127.0.0.1;Port=5432;Database=ostagar;Username=postgres;Password=ci'
-        run: dotnet ef database update --project src/Data --startup-project src/Api --no-build --context OstagarDbContext
+        run: dotnet run --project src/Cli -- db migrate
 
       - name: Integration tests (Postgres)
         env:
@@ -94,15 +91,10 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      - name: Install EF tool
-        run: dotnet tool install --global dotnet-ef
-
-      # The context and the migrations live in Ostagar.Data; the design-time factory reads
-      # ConnectionStrings__Default from the environment - that is its only source, by design.
       - name: Apply every migration to a brand-new schema
         env:
           ConnectionStrings__Default: 'Host=localhost;Port=5432;Database=ostagar;Username=postgres;Password=ci'
-        run: dotnet ef database update --project src/Data --startup-project src/Api --no-build --context OstagarDbContext
+        run: dotnet run --project src/Cli -- db migrate
 
   # L12-L15 and L17 are enforced here rather than in review.
   frontend:
