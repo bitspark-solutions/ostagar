@@ -30,15 +30,24 @@ public sealed class PermissionSeeder(OstagarDbContext context)
 
         var missing = PermissionCatalogue.All
             .Where(definition => !known.Contains(PermissionCatalogue.Key(definition.Resource, definition.Action)))
-            .Select(definition => new ResourceAction
-            {
-                Resource = definition.Resource,
-                Action = definition.Action,
-                Description = definition.Description,
-            });
+            .ToList();
 
-        context.ResourceActions.AddRange(missing);
-        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        // Discovered by CI's fresh-database run: several app instances booting against the same
+        // empty database read the same absent catalogue and all insert it. The diff-read narrows
+        // the window but cannot close it - the read and the insert are separate instants, and the
+        // unique constraint is what makes exactly one seeder the winner. ON CONFLICT turns the
+        // losers' inserts into no-ops instead of a 23505 crash, which is correct because the
+        // content is canonical (PermissionCatalogue.All): the winner's rows are these rows.
+        foreach (var definition in missing)
+        {
+            await context.Database.ExecuteSqlAsync(
+                $"""
+                INSERT INTO resource_actions (resource, action, description)
+                VALUES ({definition.Resource}, {definition.Action}, {definition.Description})
+                ON CONFLICT (resource, action) DO NOTHING
+                """, cancellationToken)
+                .ConfigureAwait(false);
+        }
     }
 
     /// <summary>

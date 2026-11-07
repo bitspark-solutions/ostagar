@@ -18,6 +18,21 @@ env:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    # The integration suite refuses to run without a connection string (by design — a suite that
+    # quietly runs against "whatever happens to be listening" proves nothing), so the backend job
+    # carries its own Postgres and applies the schema before the suite executes.
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ostagar
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
 
@@ -39,7 +54,19 @@ jobs:
       - name: Domain unit tests
         run: dotnet test tests/Ostagar.Tests.Unit --no-build -v q --nologo
 
+      - name: Install EF tool
+        run: dotnet tool install --global dotnet-ef
+
+      # The context and the migrations live in Ostagar.Data; the design-time factory reads
+      # ConnectionStrings__Default from the environment - that is its only source, by design.
+      - name: Apply migrations to the CI database
+        env:
+          ConnectionStrings__Default: 'Host=127.0.0.1;Port=5432;Database=ostagar;Username=postgres;Password=ci'
+        run: dotnet ef database update --project src/Data --startup-project src/Api --no-build --context OstagarDbContext
+
       - name: Integration tests (Postgres)
+        env:
+          ConnectionStrings__Default: 'Host=127.0.0.1;Port=5432;Database=ostagar;Username=postgres;Password=ci'
         run: dotnet test tests/Ostagar.Tests.Integration --no-build -v q --nologo
 
   # L7: migrations must apply to an EMPTY Postgres. A local half-migrated volume hid the legacy
@@ -70,11 +97,12 @@ jobs:
       - name: Install EF tool
         run: dotnet tool install --global dotnet-ef
 
+      # The context and the migrations live in Ostagar.Data; the design-time factory reads
+      # ConnectionStrings__Default from the environment - that is its only source, by design.
       - name: Apply every migration to a brand-new schema
-        run: |
-          dotnet ef database update \
-            --project src/Api --startup-project src/Api --no-build \
-            --ConnectionStrings:Default="Host=localhost;Port=5432;Database=ostagar;Username=postgres;Password=ci"
+        env:
+          ConnectionStrings__Default: 'Host=localhost;Port=5432;Database=ostagar;Username=postgres;Password=ci'
+        run: dotnet ef database update --project src/Data --startup-project src/Api --no-build --context OstagarDbContext
 
   # L12-L15 and L17 are enforced here rather than in review.
   frontend:
