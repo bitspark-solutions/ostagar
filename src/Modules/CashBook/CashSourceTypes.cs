@@ -14,6 +14,15 @@ public static class CashSourceTypes
 
     public const string Payment = "cash.payment";
 
+    /// <summary>
+    /// Stamped on postings a CSV import produced, in place of the per-kind types. An imported row is a
+    /// receipt or payment as its kind says, but its provenance is the file: the P3 tie-out needs to
+    /// name the entries the corpus created, and a retry of the upload resolves them by the same
+    /// <c>(source_type, source_id, iteration)</c> key — the source id being the deterministic
+    /// <see cref="CashBookImportKey.TransactionId"/>, not a fresh guid.
+    /// </summary>
+    public const string Import = "cash.import";
+
     public static string Of(CashTransactionKind kind) => kind switch
     {
         CashTransactionKind.Receipt => Receipt,

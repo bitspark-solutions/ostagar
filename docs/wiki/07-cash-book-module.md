@@ -56,9 +56,28 @@ Retry-safe via I5. List endpoint requires both `from`/`to` dates, returns oldest
 (document rules), `CashTransactionReversalTests` (once-only reversal). Endpoint
 behavior covered by `CashBookEndpointTests` in the integration suite.
 
+## CSV import (`POST /api/v1/cash-book/import`)
+
+The client's two-sided export — ten columns, money-in on the left (date
+`dd-MM-yyyy`, category, particulars, quoted amount) and money-out on the right
+(date `dd-MM-yy`, category, supplier, buyer, particulars, amount). Pure-module
+pipeline: `CashBookCsv` (lexing) → `CashBookImportParser` (layout; header
+recognised by its misspelt "Catagories" column) → `CashBookImportMapper`
+(category → account via the caller's **explicit** `CategoryAccountCodes` map —
+the legacy `GetOrCreateCategoryAsync` random-code auto-creation is gone by
+design) → `CashTransactionValidator` → `CashPosting` → `IPoster`.
+
+Idempotency is **per file, by content**: `CashBookImportKey` derives each
+row-side's document id (and posting `SourceId`) from the SHA-256 of the file,
+the line number and the side, under source type `cash.import`. Re-uploading the
+same bytes answers `already_posted` for every row; an edited file is a new
+import. Rows are refused individually (`CategoryUnmapped`, `RowTooShort`,
+`DateUnparseable`, …) without failing the file; the whole attempt lands in the
+audit trail as action `cash.import`. The JSON body carries the CSV text in
+`Content` — no multipart, matching the rest of the API.
+
 ## What it doesn't do yet (P3 remainder)
 
-- No CSV import of the client cash-book format (the P3 gate item).
 - No bank accounts/transfers/reconciliation (BANK journal exists, unused).
 - `PartnerId` is stored but partners module isn't wired to posting sources yet.
 - No UI — API only; web has no cash-book screens yet.

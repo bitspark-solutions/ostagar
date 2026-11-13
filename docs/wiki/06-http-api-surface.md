@@ -36,6 +36,7 @@ Startup also: strict service provider (ValidateOnBuild+Scopes), Serilog, health 
 | `GET /api/v1/cash-book/transactions?from=&to=` | any authenticated | day book, oldest first (both dates required) |
 | `GET /api/v1/cash-book/transactions/{id}` | any authenticated | one transaction with resolved codes/numbers |
 | `POST /api/v1/cash-book/transactions/{id}/reverse` | `Owner,Accounts` | reverse via ledger mirror, link recorded |
+| `POST /api/v1/cash-book/import` | `Owner,Accounts` | client CSV → per-row outcomes `{posted, alreadyPosted, refused, rows[]}`; idempotent per file content |
 | `GET /api/v1/ledger/periods` | any authenticated | the fiscal calendar, oldest first |
 | `POST /api/v1/ledger/periods/{id}/locks` | `Owner,Accounts` | `{level: soft\|hard\|tax, on}` moves a lock — forward only, audited `ledger.period.lock` |
 | `GET /api/v1/ledger/trial-balance?periodId=&asOf=` | any authenticated | first report projection; `filter_required` without a scope |
