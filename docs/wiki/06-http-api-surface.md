@@ -36,6 +36,15 @@ Startup also: strict service provider (ValidateOnBuild+Scopes), Serilog, health 
 | `GET /api/v1/cash-book/transactions?from=&to=` | any authenticated | day book, oldest first (both dates required) |
 | `GET /api/v1/cash-book/transactions/{id}` | any authenticated | one transaction with resolved codes/numbers |
 | `POST /api/v1/cash-book/transactions/{id}/reverse` | `Owner,Accounts` | reverse via ledger mirror, link recorded |
+| `GET /api/v1/ledger/periods` | any authenticated | the fiscal calendar, oldest first |
+| `POST /api/v1/ledger/periods/{id}/locks` | `Owner,Accounts` | `{level: soft\|hard\|tax, on}` moves a lock — forward only, audited `ledger.period.lock` |
+| `GET /api/v1/ledger/trial-balance?periodId=&asOf=` | any authenticated | first report projection; `filter_required` without a scope |
+| `GET /api/v1/ledger/exchange-rates?currency=` | any authenticated | recorded rate history, newest first |
+| `GET /api/v1/ledger/exchange-rates/resolve?currency=&date=` | any authenticated | quote in force on a date, 404 `rate_not_found` |
+| `POST /api/v1/ledger/exchange-rates` | `Owner,Accounts` | `{currency, validFrom, rate, source}` → `IExchangeRates.RecordAsync` |
+| `GET /api/v1/ledger/provisioning?fiscalYear=` | `Owner` | `{fiscalYear, provisioned}` status |
+| `POST /api/v1/ledger/provisioning` | `Owner` | `{fiscalYear}` → periods + base CoA + journals, idempotent |
+| `POST /api/v1/ledger/opening-balances` | `Owner,Accounts` | `{fiscalYear, balances:[{accountCode,amount}]}` → founding OPEN entry |
 | `GET /health/live`, `/health/ready` | anonymous | probes (liveness = no checks, readiness = all) |
 
 ¹ Anonymous allow-list is a **reviewed file**: `anonymous-allowlist.txt` at repo root

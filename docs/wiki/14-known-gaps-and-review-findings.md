@@ -38,18 +38,15 @@ into policies) — needs a deliberate migration, not a find/replace.
   is not done; no `csv` references anywhere in `src/`.
 - **No bank module surface** — BANK journal exists; no accounts/transfers/
   reconciliation endpoints.
-- **No reporting/projections** — P4's trial balance, P&L, BS, cash flow, aging,
-  `Verifier` don't exist. GL is write-only reachable so far.
-- **No period close endpoint** — locks exist in schema (`soft/hard/tax_locked_on`)
-  but nothing sets them yet.
+- **Reporting is started, not done** — trial balance exists
+  (`GET /api/v1/ledger/trial-balance`, a read projection over posted GL); P&L, BS,
+  cash flow, aging and the `Verifier` don't exist yet.
+- **Period close is manual locks only** — `POST .../periods/{id}/locks` moves
+  soft/hard/tax locks (forward-only, audited); no `IsClosed` flag management and no
+  unlock path exist yet.
 - **Permission enforcement handler missing** — `(resource,action)` catalogue +
   role grants exist, but endpoints check `Roles` claims, not permission keys.
   `IPermissionRequirement` is the documented missing half.
-- **Exchange-rate HTTP surface** — `IExchangeRates` exists; no controller exposes
-  `FindAsync`/`RecordAsync` yet (journal posting resolves rates internally).
-- **Opening-balances/provisioning HTTP surface** — `ILedgerProvisioner`/
-  `IOpeningBalances` are DI-registered but no endpoint invokes them; companies can
-  only be provisioned via CLI/tests today.
 - **Module persistence** — DocumentWorkflow and Partners are domain-only; no
   DbSets/migrations for their documents yet (P6).
 - **Empty modules** — Inventory, Purchasing, Sales, Payroll, Production are csproj
