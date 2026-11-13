@@ -84,6 +84,10 @@ public class OstagarDbContext(DbContextOptions<OstagarDbContext> options, ITenan
 
     public DbSet<CashTransaction> CashTransactions => Set<CashTransaction>();
 
+    public DbSet<BankAccount> BankAccounts => Set<BankAccount>();
+    public DbSet<BankReconciliation> BankReconciliations => Set<BankReconciliation>();
+    public DbSet<BankReconciliationMatch> BankReconciliationMatches => Set<BankReconciliationMatch>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -97,6 +101,7 @@ public class OstagarDbContext(DbContextOptions<OstagarDbContext> options, ITenan
         ConfigureAuditLogs(builder);
         LedgerModelConfiguration.Apply(builder);
         CashBookModelConfiguration.Apply(builder);
+        BankingModelConfiguration.Apply(builder);
 
         // Applied here rather than inside the ledger's own mapping because the filter has to close over
         // this context's tenant, and a static configuration class cannot reach it. Five calls instead of
@@ -109,6 +114,9 @@ public class OstagarDbContext(DbContextOptions<OstagarDbContext> options, ITenan
         TenantQueryFilter<GlLine>(builder);
         TenantQueryFilter<ExchangeRate>(builder);
         TenantQueryFilter<CashTransaction>(builder);
+        TenantQueryFilter<BankAccount>(builder);
+        TenantQueryFilter<BankReconciliation>(builder);
+        TenantQueryFilter<BankReconciliationMatch>(builder);
 
         SnakeCaseModelNames.Apply(builder);
     }

@@ -129,36 +129,53 @@ public sealed class Poster(
 
         context.GlEntries.Add(entry);
 
-        // Draft first: the lines are written while the entry can still be shaped, and the flip below is
-        // the single act that makes it permanent.
-        await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-
-        entry.Status = GlEntryStatus.Posted;
-
-        // Appended before the save that flips the status, so the audit row and the posting are written by
-        // the same commit. This is the one place the ordering matters: append after the commit and a
-        // failure between the two leaves a posted entry nobody recorded posting.
-        AppendAuditRecord(entry.Id, number, request, AuditOutcome.Allowed, PostAction, null);
-
         try
         {
+            // Draft first: the lines are written while the entry can still be shaped, and the flip below
+            // is the single act that makes it permanent.
+            await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+            entry.Status = GlEntryStatus.Posted;
+
+            // Appended before the save that flips the status, so the audit row and the posting are written by
+            // the same commit. This is the one place the ordering matters: append after the commit and a
+            // failure between the two leaves a posted entry nobody recorded posting.
+            AppendAuditRecord(entry.Id, number, request, AuditOutcome.Allowed, PostAction, null);
+
             await context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
             await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
         }
-        catch (Exception exception) when (IsDatabaseRefusal(exception))
+        catch (Exception exception) when (IsDatabaseRefusal(exception) || IsIdempotencyCollision(exception))
         {
             await transaction.RollbackAsync(cancellationToken).ConfigureAwait(false);
+
+            // The rollback discarded the staged audit row along with the entry. The tracker still holds
+            // both, so saving without clearing it would re-attempt the posting the database just refused
+            // and fail on it a second time.
+            context.ChangeTracker.Clear();
+
+            if (IsIdempotencyCollision(exception))
+            {
+                // Two requests carrying the same source key raced past FindExistingAsync and the unique
+                // index picked the winner. The committed entry is the answer both callers were asking
+                // for, so the loser is a retry rather than a refusal — and it is still written down.
+                var committed = await FindExistingAsync(request, cancellationToken).ConfigureAwait(false);
+                if (committed is not null)
+                {
+                    return await RecordAsync(
+                        new PostingOutcome(PostingOutcomeStatus.AlreadyPosted, [], committed.Id, committed.Number),
+                        request,
+                        AuditOutcome.Allowed,
+                        cancellationToken,
+                        RetryAction).ConfigureAwait(false);
+                }
+            }
 
             // The balance trigger is deferred to commit, so this is where an entry the application
             // wrongly accepted is actually stopped — and where the number it took is given back.
             IReadOnlyList<PostingError> errors = [new PostingError(
                 PostingErrorCode.RefusedByDatabase,
                 $"The database refused this posting: {RootMessage(exception)}")];
-
-            // The rollback discarded the staged audit row along with the entry. The tracker still holds
-            // both, so saving without clearing it would re-attempt the posting the database just refused
-            // and fail on it a second time.
-            context.ChangeTracker.Clear();
 
             return await RefuseAsync(request, errors, cancellationToken).ConfigureAwait(false);
         }
@@ -259,6 +276,14 @@ public sealed class Poster(
 
         var byId = found.ToDictionary(account => account.Id);
 
+        // Registered banks carry their own currency: a statement is that account's movements in that
+        // currency, so a line in any other currency would post to the ledger and never appear on one.
+        // The gl_lines trigger is the rule; this is the readable version of it.
+        var bankCurrencies = await context.BankAccounts
+            .Where(bank => ids.Contains(bank.LedgerAccountId))
+            .ToDictionaryAsync(bank => bank.LedgerAccountId, bank => bank.Currency, cancellationToken)
+            .ConfigureAwait(false);
+
         for (var index = 0; index < request.Lines.Count; index++)
         {
             if (!byId.TryGetValue(request.Lines[index].AccountId, out var account))
@@ -275,6 +300,16 @@ public sealed class Poster(
                     PostingErrorCode.AccountUnpostable,
                     $"'{account.Code} {account.Name}' cannot be posted to because "
                     + $"{(account.IsPostable ? "it is inactive" : "it is a parent account, not a leaf")}.",
+                    index)]);
+            }
+
+            if (bankCurrencies.TryGetValue(account.Id, out var bankCurrency)
+                && request.Lines[index].Currency != bankCurrency)
+            {
+                return new PostingOutcome(PostingOutcomeStatus.Rejected, [new PostingError(
+                    PostingErrorCode.BankCurrencyMismatch,
+                    $"'{account.Code} {account.Name}' is registered as a {bankCurrency} bank account, "
+                    + $"so a {request.Lines[index].Currency} line on it would never appear on its statement.",
                     index)]);
             }
         }
@@ -608,6 +643,17 @@ public sealed class Poster(
     private static bool IsDatabaseRefusal(Exception exception) =>
         Unwind(exception).Any(each => each is Npgsql.PostgresException postgres
             && postgres.SqlState == "P0001");
+
+    /// <summary>
+    /// Whether an exception is the idempotency index firing — SQLSTATE 23505 on
+    /// <c>UQ_gl_entries_source_key</c> and nothing else. Naming the constraint matters: a uniqueness
+    /// failure on the entry number or any other index is a genuine fault, not a duplicate retry, and
+    /// reporting it as <c>AlreadyPosted</c> would point a caller at an entry that is not theirs.
+    /// </summary>
+    private static bool IsIdempotencyCollision(Exception exception) =>
+        Unwind(exception).Any(each => each is Npgsql.PostgresException postgres
+            && postgres.SqlState == Npgsql.PostgresErrorCodes.UniqueViolation
+            && postgres.ConstraintName == "UQ_gl_entries_source_key");
 
     private static string RootMessage(Exception exception) => Unwind(exception).Last().Message;
 

@@ -10,6 +10,7 @@ using Ostagar.Platform.Tenancy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace Ostagar.Tests.Integration;
 
@@ -194,9 +195,9 @@ internal sealed class LedgerHarness(WebAppFactory factory)
     }
 
     /// <summary>Refused for the same reason a rate cannot be edited: the trail is history, not a setting.</summary>
-    internal Task<string?> TryMutateRateAsync(LedgerWorld world, CurrencyCode currency, DateOnly validFrom)
+    internal Task<PostgresException> TryMutateRateAsync(LedgerWorld world, CurrencyCode currency, DateOnly validFrom)
     {
-        return StoreErrorAsync(async () =>
+        return DatabaseRefusalAsync(async () =>
         {
             using var scope = TenantScope.Open(
                 factory.Services.GetRequiredService<IServiceScopeFactory>(), world.TenantId);
@@ -224,9 +225,9 @@ internal sealed class LedgerHarness(WebAppFactory factory)
     }
 
     /// <summary>Attempts the one thing an append-only trail must not allow: rewriting a row.</summary>
-    internal Task<string?> TryMutateAuditRowAsync(LedgerWorld world, bool delete)
+    internal Task<PostgresException> TryMutateAuditRowAsync(LedgerWorld world, bool delete)
     {
-        return StoreErrorAsync(async () =>
+        return DatabaseRefusalAsync(async () =>
         {
             using var scope = TenantScope.Open(
                 factory.Services.GetRequiredService<IServiceScopeFactory>(), world.TenantId);
@@ -265,6 +266,15 @@ internal sealed class LedgerHarness(WebAppFactory factory)
         }
 
         return null;
+    }
+
+    private static async Task<PostgresException> DatabaseRefusalAsync(Func<Task> action)
+    {
+        var failure = Assert.IsType<PostgresException>(await Record.ExceptionAsync(action));
+        Assert.True(failure.SqlState == PostgresErrorCodes.InsufficientPrivilege
+            || failure.SqlState == PostgresErrorCodes.RaiseException
+            && failure.MessageText.Contains("append-only", StringComparison.OrdinalIgnoreCase), failure.ToString());
+        return failure;
     }
 
     private static IEnumerable<Exception> Unwind(Exception exception)

@@ -104,6 +104,13 @@ public enum PostingErrorCode
     AlreadyReversed,
 
     /// <summary>
+    /// A line on a registered bank account was denominated in a currency other than the bank's own. A
+    /// statement is the bank's movements in its currency, so a line in any other currency would post to
+    /// the ledger while never appearing on a statement — a difference that reconciles to nothing.
+    /// </summary>
+    BankCurrencyMismatch,
+
+    /// <summary>
     /// The database refused the posting after the application had accepted it. Reported as its own code
     /// because it means the two layers disagree, which is a defect in this one regardless of which side
     /// is wrong.

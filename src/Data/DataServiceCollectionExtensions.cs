@@ -37,6 +37,7 @@ public static class DataServiceCollectionExtensions
 
         services.AddScoped<ITenantDirectory, TenantDirectory>();
         services.AddScoped<IPoster, Poster>();
+        services.AddScoped<Banking>();
         services.AddScoped<ILedgerProvisioner, LedgerProvisioner>();
         services.AddScoped<IOpeningBalances, OpeningBalances>();
         services.AddScoped<IExchangeRates, ExchangeRates>();

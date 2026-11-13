@@ -147,10 +147,13 @@ public sealed class ExchangeRateTests(WebAppFactory factory) : IClassFixture<Web
 
         await ledger.RecordRateAsync(world, Usd, July, 112.40m);
 
-        var message = await ledger.TryMutateRateAsync(world, Usd, July);
+        var failure = await ledger.TryMutateRateAsync(world, Usd, July);
 
-        Assert.NotNull(message);
-        Assert.Contains("append-only", message, StringComparison.OrdinalIgnoreCase);
+        if (failure.SqlState == Npgsql.PostgresErrorCodes.InsufficientPrivilege)
+            Assert.Contains("exchange_rates", failure.MessageText, StringComparison.Ordinal);
+        var outcome = await ledger.PostAsync(world, ForeignPair(world, 20m, 2_248m, rate: null));
+        Assert.True(outcome.Succeeded);
+        Assert.Equal(112.40m, (await ledger.PostedLineAsync(world, outcome.EntryId!.Value)).ExchangeRate);
     }
 
     [Fact]

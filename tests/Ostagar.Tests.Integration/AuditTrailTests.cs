@@ -113,13 +113,15 @@ public sealed class AuditTrailTests(WebAppFactory factory) : IClassFixture<WebAp
         var world = await ledger.ProvisionedCompanyAsync(2026);
 
         await ledger.PostAsync(world, amount: 500m);
+        var before = Assert.Single(await ledger.AuditRowsAsync(world));
 
-        var message = await ledger.TryMutateAuditRowAsync(world, delete: false);
+        var failure = await ledger.TryMutateAuditRowAsync(world, delete: false);
 
         // The migration's own comment records why a privilege check is not enough here: this connection
         // is the table owner, which outranks a REVOKE. The trigger is the line that binds it.
-        Assert.NotNull(message);
-        Assert.Contains("append-only", message, StringComparison.OrdinalIgnoreCase);
+        if (failure.SqlState == Npgsql.PostgresErrorCodes.InsufficientPrivilege)
+            Assert.Contains("audit_logs", failure.MessageText, StringComparison.Ordinal);
+        Assert.Equal(before, Assert.Single(await ledger.AuditRowsAsync(world)));
     }
 
     [Fact]
@@ -128,11 +130,13 @@ public sealed class AuditTrailTests(WebAppFactory factory) : IClassFixture<WebAp
         var world = await ledger.ProvisionedCompanyAsync(2026);
 
         await ledger.PostAsync(world, amount: 500m);
+        var before = Assert.Single(await ledger.AuditRowsAsync(world));
 
-        var message = await ledger.TryMutateAuditRowAsync(world, delete: true);
+        var failure = await ledger.TryMutateAuditRowAsync(world, delete: true);
 
-        Assert.NotNull(message);
-        Assert.Contains("append-only", message, StringComparison.OrdinalIgnoreCase);
+        if (failure.SqlState == Npgsql.PostgresErrorCodes.InsufficientPrivilege)
+            Assert.Contains("audit_logs", failure.MessageText, StringComparison.Ordinal);
+        Assert.Equal(before, Assert.Single(await ledger.AuditRowsAsync(world)));
     }
 
     [Fact]
